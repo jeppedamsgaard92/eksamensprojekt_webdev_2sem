@@ -1,0 +1,9 @@
+data/ -> alle data filer
+src/
+  controllers/ -> funktioner der håndterer req/res, altså det sidste punkt i routen
+  middleware/ -> alt middleware i routen før controlleren
+  routes/ -> alle routes. definerer endpoint til controller
+  schemas/ -> validerings schemaer
+  utils/ -> generelle hjælpefunktioner
+  dataUtils/ -> hjælpefunktioner der læser, finder, opretter, gemmer og sletter data.
+  server.js -> starter app osv
