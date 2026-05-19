@@ -1,0 +1,13 @@
+[
+  {
+    "id": "3bd16047-8054-4480-a864-0c2c48388cdc",
+    "role": "admin",
+    "email": "michael@laudrup.com",
+    "username": "supermanFC",
+    "passwordHash": "$argon2id$v=19$m=65536,t=3,p=4$tApqR9QmD6kwtwRsvuJiUA$xn4XS7EckAY2pzftfxrQurc7qUx3SnI55VFBAfSW0Ws",
+    "registrationCompleted": true,
+    "registrationTokenHash": null,
+    "registrationTokenExpiresAt": null,
+    "registrationTokenUsedAt": "2026-05-19T16:17:37.585Z"
+  }
+]

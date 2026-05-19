@@ -4,6 +4,7 @@ src/
   middleware/ -> alt middleware i routen før controlleren
   routes/ -> alle routes. definerer endpoint til controller
   schemas/ -> validerings schemaer
-  utils/ -> generelle hjælpefunktioner
-  dataUtils/ -> hjælpefunktioner der læser, finder, opretter, gemmer og sletter data.
+  utils/ -> generelle små hjælpefunktioner
+  dataUtils/ -> hjælpefunktioner der håndterer data adgang
+  services/ -> til appens forretningslogik — altså de funktioner, der udfører en samlet handling i systemet, ofte ved at bruge flere mindre dele sammen.
   server.js -> starter app osv

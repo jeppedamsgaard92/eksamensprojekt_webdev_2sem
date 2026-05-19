@@ -1,0 +1,38 @@
+1. Der oprettes en bruger i systemet
+   - id
+   - rolle: admin/client
+   - email
+   - endnu intet brugernavn eller password
+
+2. Systemet genererer en token
+   - token sendes i en email som registreringslink
+   - kun hash af token gemmes i users.json
+
+3. Brugeren klikker på linket:
+   /register/activate?token=...
+
+4. Serveren verificerer:
+   - findes token?
+   - passer token-hash?
+   - er token ikke udløbet?
+   - er brugeren ikke allerede registreret?
+
+5. Hvis token er gyldig:
+   - serveren opretter en midlertidig, begrænset registrerings-session
+   - sessionen knyttes til den konkrete user.id
+   - brugeren redirectes til /register uden token i URL’en
+
+6. /register viser formularen:
+   - nyt brugernavn
+   - nyt kodeord
+   - gentag kodeord
+
+7. Ved POST /register:
+   - serveren accepterer kun requesten, hvis den midlertidige registrerings-session findes
+   - serveren bruger user.id fra sessionen, ikke fra formularen
+   - username og passwordHash gemmes på den samme bruger
+   - token invaliders
+   - registreringen markeres som fuldført
+
+8. Brugeren sendes til /login
+   - fremover logger brugeren ind normalt
