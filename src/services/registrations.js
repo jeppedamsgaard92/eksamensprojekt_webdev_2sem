@@ -3,17 +3,6 @@ import { findUserById, findUserByUsername, findUserByRegistrationTokenHash, upda
 import { hashToken } from "../utils/tokens.js";
 import { hashPassword } from "../utils/passwords.js";
 
-/*
-  Verificerer den registreringstoken,
-  som kommer fra brugerens email-link.
-
-  Funktionen:
-  - hasher den modtagne rå token
-  - finder brugeren ud fra token-hash
-  - tjekker at registreringen ikke allerede er fuldført
-  - tjekker at tokenen ikke er udløbet
-  - returnerer brugeren og token-hash'en, hvis alt er gyldigt
-*/
 export async function verifyRegistrationToken(token) {
   //Token skal komme ind som en ikke-tom tekststreng. Hvis token mangler helt, er linket ugyldigt.
   if (typeof token !== "string" || token.trim() === "") {
@@ -36,15 +25,13 @@ export async function verifyRegistrationToken(token) {
     return null;
   }
 
-    //registrationTokenUsedAt sættes først, når registreringen er fuldført. Vi bruger altså ikke tokenen op, bare fordi linket åbnes.
-    //Det er vigtigt, fordi mailprogrammer og sikkerhedsscannere nogle gange åbner links automatisk.
+  //Invitationen må ikke allerede være brugt.
   if (user.registrationTokenUsedAt) {
     return null;
   }
 
   //Token skal have en gyldig udløbstid.
   const expiryTime = Date.parse(user.registrationTokenExpiresAt);
-
   if (Number.isNaN(expiryTime)) {
     return null;
   }

@@ -28,6 +28,6 @@ export const completeRegistrationSchema = z
     ({ password, confirmPassword }) => password === confirmPassword,
     {
       path: ["confirmPassword"],
-      error: "Passwords do not match.",
+      message: "Passwords do not match.",
     }
   );

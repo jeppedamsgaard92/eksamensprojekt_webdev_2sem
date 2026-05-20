@@ -3,19 +3,19 @@ import { activateRegistration, showRegistrationPage, completeRegistration, } fro
 import { requirePendingRegistrationSession, } from "../middleware/requirePendingRegistrationSession.js";
 import { validateCompleteRegistration, } from "../middleware/validateCompleteRegistration.js";
 import { requireCsrfToken, } from "../middleware/requireCsrfToken.js";
-import { generateCsrfToken, hashToken, } from "../utils/tokens.js";
+import { generateCsrfToken, hashToken, } from "../utils/tokens.js"; //slet?
 
 const router = express.Router();
 
 //Brugeren åbner linket fra emailen: /register/activate?token=...
 router.get("/activate", activateRegistration);
 
-//Selve registreringssiden må kun ses, hvis aktiveringslinket/token først er verificeret - selvfølgelig.
-router.get("/", requirePendingRegistrationSession, showRegistrationPage );
+//Selve registreringssiden
+router.get("/", showRegistrationPage );
 //Man må også kun rent faktisk oprette sig hvis man 
 router.post("/", requirePendingRegistrationSession, requireCsrfToken, validateCompleteRegistration, completeRegistration );
 
-router.get("/csrf-token", requirePendingRegistrationSession,
+router.get("/csrf-token", requirePendingRegistrationSession, //slet?
   (req, res) => {
     const csrfToken = generateCsrfToken();
     req.session.csrfTokenHash = hashToken(csrfToken);

@@ -39,7 +39,7 @@ export async function activateRegistration(req, res, next) {
           return next(saveError);
         }
         //Brugeren sendes videre til register.
-        res.redirect("http://localhost:5173/register");
+        res.redirect("/register");
       });
     });
   } catch (error) {
@@ -121,17 +121,13 @@ export async function completeRegistration(req, res, next) {
 
     const result = await completeUserRegistration({
       userId: req.session.pendingRegistrationUserId,
-      registrationTokenHash:
-        req.session.pendingRegistrationTokenHash,
+      registrationTokenHash: req.session.pendingRegistrationTokenHash,
       username,
       password,
     });
 
     //Brugernavnet er allerede taget af en anden bruger.
-    if (
-      !result.success &&
-      result.reason === "USERNAME_ALREADY_EXISTS"
-    ) {
+    if ( !result.success && result.reason === "USERNAME_ALREADY_EXISTS") {
       return res.status(409).json({
         message: "Username is already in use.",
       });
@@ -145,7 +141,7 @@ export async function completeRegistration(req, res, next) {
       });
     }
 
-    //Den begrænsede registrerings-session skal væk, når registreringen er færdig.
+    //registrerings-session skal væk, når registreringen er færdig.
     req.session.destroy((error) => {
       if (error) {
         return next(error);
