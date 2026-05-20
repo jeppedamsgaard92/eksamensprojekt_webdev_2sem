@@ -6,9 +6,10 @@ import multer from "multer";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Fortæl multer, hvilken mappe filerne skal lande i
-const upload = multer({ dest: path.join(__dirname, "../../data/pdfSlidesDB/") });
+// Mappe til pdf filer
+const pdfSlidesFolder = path.join(__dirname, "../public/pdfSlidesDB/");
 
+// Til at uploade pdf-filer
 export function uploadPdfFiles(req, res) {
     try {
         if (!req.files || req.files.length === 0) {
@@ -17,8 +18,8 @@ export function uploadPdfFiles(req, res) {
 
         const gemteFiler = req.files.map(file => {
             return {
-                fileName: file.originalname, // Nu det rigtige navn, f.eks. "onboarding.pdf"
-                url: `http://localhost:3000/data/pdfSlidesDB/${file.originalname}`
+                fileName: file.originalname, // Det rigtige navn, f.eks. "onboarding.pdf"
+                url: `http://localhost:${process.env.PORT ?? '2000'}/pdfSlidesDB/${file.originalname}`
             };
         });
 
@@ -31,3 +32,25 @@ export function uploadPdfFiles(req, res) {
         return res.status(500).json({ success: false, message: 'Fejl under upload.' });
     }
 }
+
+// Til at få alle pdf filer
+export async function getAllPdfFiles(req, res) {
+    try {
+        const files = await fs.readdir(pdfSlidesFolder);
+
+        // Filtrerer .DS_Store fra (en usynlig systemfil som Mac automatisk laver i mapper)
+        const pdfFiles = files.filter(file => file !== '.DS_Store');
+
+        const fileList = pdfFiles.map(filename => {
+            return {
+                filnavn: filename, // normale filnavn
+                src: `http://localhost:${process.env.PORT ?? "2000"}/pdfSlidesDB/${filename}`
+            };
+        });
+
+        return res.status(200).json(fileList);
+    } catch (error) {
+        return res.status(500).json({ success: false, message: "Kunne ikke hente filer." });
+    }
+}
+
