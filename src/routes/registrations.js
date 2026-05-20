@@ -4,6 +4,7 @@ import { requirePendingRegistrationSession, } from "../middleware/requirePending
 import { validateCompleteRegistration, } from "../middleware/validateCompleteRegistration.js";
 import { requireCsrfToken, } from "../middleware/requireCsrfToken.js";
 import { deleteCsrfToken } from "../middleware/deleteCsrfToken.js";
+import { requireAuth } from "../middleware/requireAuth.js";
 
 
 const router = express.Router();
@@ -16,5 +17,22 @@ router.get("/", requirePendingRegistrationSession, showRegistrationPage );
 //Man må også kun rent faktisk oprette sig hvis man 
 router.post("/", requirePendingRegistrationSession, requireCsrfToken, validateCompleteRegistration, completeRegistration );
 
+
+// tilføjelse af nye routes for admin til at oprette klient og admin accounts
+router.post(
+  "/create-new-client-account",
+  requireAuth,
+  requirePermission("create:client-account"),
+  requireCsrfToken,
+  createNewClientAccount
+);
+
+router.post(
+  "/create-new-admin-account",
+  requireAuth,
+  requirePermission("create:admin-account"),
+  requireCsrfToken,
+  createNewAdminAccount
+);
 
 export default router;
