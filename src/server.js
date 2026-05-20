@@ -9,6 +9,13 @@ import onboardingRoutes from "./routes/onboarding.js";
 import csrfRoutes from "./routes/csrf.js";
 import authRoutes from "./routes/auth.js";
 
+import path from "path";
+import { fileURLToPath } from "url";
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
 
 const PORT = process.env.PORT || 2000;
@@ -164,7 +171,7 @@ app.use(
   })
 );
 
-
+app.use(express.static(path.join(__dirname, "public")));
 
 /*
   Registreringsflowets routes.
