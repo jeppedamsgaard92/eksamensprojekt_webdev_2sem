@@ -18,8 +18,8 @@ const isProduction = process.env.NODE_ENV === "production";
 app.use(cors({
   origin: true, // Tillader alle domæner/URL'er (f.eks. både localhost:5500, localhost:5173 osv.)
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'], // Tillader alle gængse HTTP-metoder
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'] // Tillader de vigtigste headers
+  //methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'], // Tillader alle gængse HTTP-metoder
+  //allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'] // Tillader de vigtigste headers
 }));
 
 /*

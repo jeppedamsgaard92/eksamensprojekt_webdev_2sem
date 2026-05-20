@@ -7,7 +7,7 @@ import { requireAuth } from "../middleware/requireAuth.js";
 
 const router = express.Router();
 
-router.post("/login", validateLogin, login);
+router.post("/login", requireCsrfToken, validateLogin, login);
 
 router.get("/me", requireAuth, getCurrentUser);
 
