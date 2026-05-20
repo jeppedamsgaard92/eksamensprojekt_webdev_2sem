@@ -1,7 +1,5 @@
 import crypto from "crypto";
-
 import { findUserByEmail, createUser, } from "../dataUtils/users.js";
-
 import { generateSecureToken, hashToken, createExpiryDate, } from "../utils/tokens.js";
 
 //Registreringslinket skal kun være gyldigt i en begrænset periode (48t som udgangspunkt).
@@ -17,49 +15,30 @@ export async function createUserInvitation({ email, role }) {
   if (existingUser) {
     throw new Error(`A user with "${email}" already exists.`);
   }
-  //Opretter id til brugeren.
-  const userId = crypto.randomUUID();
-  //Genererer registreringstoken.
-  const registrationToken = generateSecureToken();
-  //Gemmer hash-værdi
-  const registrationTokenHash = hashToken(registrationToken);
-  //Tokenet får en fast udløbstid. Den gemmes som ISO-dato i JSON-filen.
-  const registrationTokenExpiresAt = createExpiryDate(REGISTRATION_TOKEN_EXPIRY_MS);
-  /*
-    Brugeren oprettes som "pending":
-    - rollen kender systemet allerede
-    - emailen kender systemet allerede
-    - brugernavn og password kommer først, når registreringslinket er verificeret
-  */
+  const userId = crypto.randomUUID();  //Opretter id til brugeren.
+  const registrationToken = generateSecureToken();   //Genererer registreringstoken.
+  const registrationTokenHash = hashToken(registrationToken);   //Gemmer hash-værdi
+  const registrationTokenExpiresAt = createExpiryDate(REGISTRATION_TOKEN_EXPIRY_MS);   //Tokenet får en fast udløbstid. Den gemmes som ISO-dato i JSON-filen.
+
+  //Brugeren oprettes som "pending" - dvs den ikke er færdig endnu. Systemet kender email og role, men resten kommer senere, når brugeren selv registrere sig.
   const newUser = {
-    id: userId,
+    id: userId, 
     role,
     email,
-
     username: null,
     passwordHash: null,
-
     registrationCompleted: false,
-
     registrationTokenHash,
     registrationTokenExpiresAt,
     registrationTokenUsedAt: null,
   };
-  //Brugeren gemmes gennem dataUtils, så invitations-flowet ikke selv skriver direkte til users.json.
+  //Brugeren gemmes gennem /dataUtils (createUser() kommer derfra), så invitations-flowet ikke selv skriver direkte til users.json. Så kan det laves til SQL eller whatever på et senere tidspunkt hvis det er, fordi alt data håndterings logik ligger i dataUtils.
   const createdUser = await createUser(newUser);
-  /*
-    Link som brugeren skal åbne.
-    Den rå token ligger i URL'en, fordi serveren
-    skal kunne validere den, når linket bliver besøgt.
-  */
+  
+  //Link med token som brugeren skal åbne - leder til aktivering/registrering.
   const registrationLink = `${APP_BASE_URL}/register/activate?token=${registrationToken}`;
 
-  /*
-    Jeg returnerer både brugeren og linket.
-
-    OBS!! Lige nu kan et script printe linket i terminalen.
-    Senere kan email-logikken sende det automatisk.
-  */
+  // returnerer både brugeren og linket. OBS!! Lige nu kan et script printe linket i terminalen. Senere kan email-logikken sende det automatisk.
   return {
     user: createdUser,
     registrationLink,

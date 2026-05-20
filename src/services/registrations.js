@@ -19,8 +19,7 @@ export async function verifyRegistrationToken(token) {
   if (typeof token !== "string" || token.trim() === "") {
     return null;
   }
-
-  //Gemmer kun token-hash i datafilen, så tokenen fra URL'en hashes først.
+  //hasher den
   const registrationTokenHash = hashToken(token);
 
   //Token-hash'en bruges til at finde den bruger, som invitationen hører til.
@@ -56,7 +55,6 @@ export async function verifyRegistrationToken(token) {
   }
 
   // Returnerer både brugeren og token-hash'en.
-  // Token-hash'en gemmes senere i registrerings-sessionen, så vi kan sikre, at den efterfølgende registrering stadig hører til præcis den invitation, der blev verificeret.
   return {
     user,
     registrationTokenHash,

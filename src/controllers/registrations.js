@@ -1,16 +1,6 @@
-import {
-  verifyRegistrationToken,
-  completeUserRegistration,
-} from "../services/registrations.js";
-
-import {
-  generateCsrfToken,
-  hashToken,
-} from "../utils/tokens.js";
+import { verifyRegistrationToken, completeUserRegistration, } from "../services/registrations.js";
+import { generateCsrfToken, hashToken, } from "../utils/tokens.js";
 /*
-  Denne controller rammes, når brugeren åbner linket fra emailen:
-  /register/activate?token=...
-
   Hvis tokenen er gyldig:
   - oprettes en ny registrerings-session
   - bindes sessionen til den konkrete bruger
@@ -18,8 +8,8 @@ import {
 */
 export async function activateRegistration(req, res, next) {
   try {
-    const { token } = req.query;
-    const verifiedRegistration = await verifyRegistrationToken(token);
+    const { token } = req.query; //tager token fra linket, som brugeren åbner i emailen
+    const verifiedRegistration = await verifyRegistrationToken(token); //får bruger og tilhørende tokenhash
 
     if (!verifiedRegistration) {
       return res
@@ -29,7 +19,7 @@ export async function activateRegistration(req, res, next) {
 
     const { user, registrationTokenHash, } = verifiedRegistration;
 
-    // Regenererer session-ID'et, når brugeren går fra almindelig anonym besøgende til en browser, der må færdiggøre registrering for en konkret invitation.
+    // Nu har vi fundet ud af, at linket er gyldigt, så vi regenererer session-ID'et, når brugeren går fra almindelig anonym besøgende til en browser, der må færdiggøre registrering for en konkret invitation.
     // Det reducerer risikoen for session fixation.
     
     req.session.regenerate((error) => {
@@ -37,31 +27,19 @@ export async function activateRegistration(req, res, next) {
         return next(error);
       }
 
-      /*
-        Sessionen bliver nu en begrænset registrerings-session.
-        Den betyder IKKE, at brugeren er logget ind!
-        Den betyder kun: "Denne browser har verificeret et gyldigt registreringslink og må fortsætte registreringsflowet."
-      */
+      //nu oprettes "pendingRegistrationUserId" på sessionen, så vi senere kan validere, at det er den oprindelige ejermand af tokenet, der opretter sig som bruger
       req.session.pendingRegistrationUserId = user.id;
 
-      /*
-        Gemmer også token-hash'en i sessionen.
-        Når brugeren senere sender brugernavn og kodeord, kan det kontrolleres, at det stadig er den samme invitation, der ligger bag registreringen.
-      */
-      req.session.pendingRegistrationTokenHash =
-        registrationTokenHash;
+      //Gemmer også token-hash'en i sessionen. Når brugeren senere sender brugernavn og kodeord, kan det kontrolleres, at det stadig er den samme invitation, der ligger bag registreringen.
+      req.session.pendingRegistrationTokenHash = registrationTokenHash;
 
-      /*
-        Sessionen gemmes eksplicit før redirect.
-        express-session gemmer automatisk, men har læst et sted, at det kan være smart at gemme med .save for en sikkerhedsskyld.
-      */
+      //Sessionen gemmes eksplicit før redirect. express gemmer automatisk, men bare for at sikre at den gemmer før den redirecter til /register. Better safe than sorry..
       req.session.save((saveError) => {
         if (saveError) {
           return next(saveError);
         }
-        //Brugeren sendes videre uden token i URL'en.
-        // Det er bedre end at vise formularen direkte på /register/activate?token=..., fordi tokenen så ikke bliver liggende synligt i browserens adressefelt.
-        res.redirect("/register");
+        //Brugeren sendes videre til register.
+        res.redirect("http://localhost:5173/register");
       });
     });
   } catch (error) {
