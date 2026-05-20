@@ -4,6 +4,8 @@ import { requirePendingRegistrationSession, } from "../middleware/requirePending
 import { validateCompleteRegistration, } from "../middleware/validateCompleteRegistration.js";
 import { requireCsrfToken, } from "../middleware/requireCsrfToken.js";
 import { generateCsrfToken, hashToken, } from "../utils/tokens.js"; //slet?
+import { deleteCsrfToken } from "../middleware/deleteCsrfToken.js";
+
 
 const router = express.Router();
 
@@ -13,16 +15,7 @@ router.get("/activate", activateRegistration);
 //Selve registreringssiden
 router.get("/", showRegistrationPage );
 //Man må også kun rent faktisk oprette sig hvis man 
-router.post("/", requirePendingRegistrationSession, requireCsrfToken, validateCompleteRegistration, completeRegistration );
+router.post("/", requirePendingRegistrationSession, requireCsrfToken, deleteCsrfToken, validateCompleteRegistration, completeRegistration );
 
-router.get("/csrf-token", requirePendingRegistrationSession, //slet?
-  (req, res) => {
-    const csrfToken = generateCsrfToken();
-    req.session.csrfTokenHash = hashToken(csrfToken);
-    res.status(200).json({
-      csrfToken,
-    });
-  }
-);
 
 export default router;

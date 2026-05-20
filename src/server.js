@@ -5,6 +5,7 @@ import session from "express-session";
 
 import registrationRoutes from "./routes/registrations.js";
 import onboardingRoutes from "./routes/onboarding.js";
+import csrfRoutes from "./routes/csrf.js";
 
 const app = express();
 
@@ -164,6 +165,11 @@ app.use("/register", registrationRoutes);
   Onboarding routes.
 */
 app.use("/onboarding", onboardingRoutes);
+
+/*
+  CSRF routes.
+*/
+app.use("/csrf", csrfRoutes);
 
 /*
   Midlertidig test-route.

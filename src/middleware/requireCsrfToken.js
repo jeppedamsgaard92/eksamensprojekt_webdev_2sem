@@ -1,34 +1,33 @@
 import { hashToken } from "../utils/tokens.js";
 
-//Verificerer at formularens CSRF-token matcher den token, der er knyttet til sessionen.
 export function requireCsrfToken(req, res, next) {
-  const csrfToken = req.body._csrf;
+  // Henter CSRF-token fra enten HTML-formular eller frontend request-header.
+  const csrfToken = req.body._csrf || req.get("x-csrf-token");
 
-  //Requesten skal indeholde en CSRF-token.
-  if (
-    typeof csrfToken !== "string" ||
-    csrfToken.trim() === ""
-  ) {
+  // Stopper requesten, hvis token mangler eller ikke er tekst.
+  if (typeof csrfToken !== "string" || csrfToken.trim() === "") {
     return res.status(403).json({
       message: "Invalid CSRF token.",
     });
   }
 
-  //Sessionen skal indeholde en tilhørende CSRF-token-hash.
+  // Stopper requesten, hvis sessionen ikke har en token-hash at sammenligne med.
   if (!req.session.csrfTokenHash) {
     return res.status(403).json({
       message: "Invalid CSRF token.",
     });
   }
 
-  //Den modtagne token hashes og sammenlignes med hash'en i sessionen.
+  // Hasher den modtagne token, så den kan sammenlignes med sessionens hash.
   const csrfTokenHash = hashToken(csrfToken);
 
+  // Stopper requesten, hvis tokenen ikke matcher sessionens CSRF-token.
   if (csrfTokenHash !== req.session.csrfTokenHash) {
     return res.status(403).json({
       message: "Invalid CSRF token.",
     });
   }
 
+  // Tokenen er gyldig, så næste middleware/controller må køre.
   next();
 }
