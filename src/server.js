@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import helmet from "helmet";
 import session from "express-session";
+import cors from 'cors';
 
 import registrationRoutes from "./routes/registrations.js";
 import onboardingRoutes from "./routes/onboarding.js";
@@ -12,6 +13,14 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 const isProduction = process.env.NODE_ENV === "production";
+
+// Sæt CORS til at tillade alt (skal ligge FØR dine ruter!)
+app.use(cors({
+  origin: true, // Tillader alle domæner/URL'er (f.eks. både localhost:5500, localhost:5173 osv.)
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'], // Tillader alle gængse HTTP-metoder
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'] // Tillader de vigtigste headers
+}));
 
 /*
   Jeg vil ikke starte serveren, hvis SESSION_SECRET mangler.
