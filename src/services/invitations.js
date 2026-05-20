@@ -9,7 +9,7 @@ const REGISTRATION_TOKEN_EXPIRY_MS = 1000 * 60 * 60 * 48;
 const APP_BASE_URL = process.env.APP_BASE_URL || "http://localhost:3000";
 
 //Opretter en ny bruger med registreringslink til den tilknyttede email.
-export async function createUserInvitation({ email, role }) {
+export async function createUserInvitation({ email, role, name }) {
   //tjekker først, om emailen allerede findes. Der skal ikke kunne oprettes flere brugere med samme emailadresse.
   const existingUser = await findUserByEmail(email);
   if (existingUser) {
@@ -22,7 +22,8 @@ export async function createUserInvitation({ email, role }) {
 
   //Brugeren oprettes som "pending" - dvs den ikke er færdig endnu. Systemet kender email og role, men resten kommer senere, når brugeren selv registrere sig.
   const newUser = {
-    id: userId, 
+    id: userId,
+    name,
     role,
     email,
     username: null,
@@ -34,7 +35,7 @@ export async function createUserInvitation({ email, role }) {
   };
   //Brugeren gemmes gennem /dataUtils (createUser() kommer derfra), så invitations-flowet ikke selv skriver direkte til users.json. Så kan det laves til SQL eller whatever på et senere tidspunkt hvis det er, fordi alt data håndterings logik ligger i dataUtils.
   const createdUser = await createUser(newUser);
-  
+
   //Link med token som brugeren skal åbne - leder til aktivering/registrering.
   const registrationLink = `${APP_BASE_URL}/register/activate?token=${registrationToken}`;
 

@@ -8,11 +8,13 @@ import { createUserInvitation } from "../src/services/invitations.js";
 
   Derfor hardcoder jeg den første admins oplysninger her i et engangsscript.
 */
-const INITIAL_ADMIN_EMAIL = "michael@laudrup.com";
+const INITIAL_ADMIN_EMAIL = "torben@laudrup.com";
+const role = 'client';
+const name = 'Kim Larsen'
 
 /*
   Scriptet opretter:
-  - en pending admin-bruger
+  - en pending bruger
   - en registreringstoken
   - et registreringslink
 
@@ -23,7 +25,8 @@ async function createInitialAdmin() {
   try {
     const { user, registrationLink } = await createUserInvitation({
       email: INITIAL_ADMIN_EMAIL,
-      role: "admin",
+      role: role,
+      name: name,
     });
 
     console.log("Første admin er oprettet:");
