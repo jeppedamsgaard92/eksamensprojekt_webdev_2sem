@@ -9,5 +9,28 @@
     "registrationTokenHash": null,
     "registrationTokenExpiresAt": null,
     "registrationTokenUsedAt": "2026-05-19T16:17:37.585Z"
+  },
+  {
+    "id": "f322525f-3d5c-4f56-8047-8a32d2206342",
+    "role": "client",
+    "email": "brian@laudrup.com",
+    "username": null,
+    "passwordHash": null,
+    "registrationCompleted": false,
+    "registrationTokenHash": "51df8dee91a0266da7ff7d34f0c1add5f5b1696859439772b908dad2f7a68a58",
+    "registrationTokenExpiresAt": "2026-05-22T09:48:29.316Z",
+    "registrationTokenUsedAt": null
+  },
+  {
+    "id": "a87e8fdc-4723-42ac-a568-bddd0cfe78e4",
+    "name": "Kim Larsen",
+    "role": "client",
+    "email": "torben@laudrup.com",
+    "username": null,
+    "passwordHash": null,
+    "registrationCompleted": false,
+    "registrationTokenHash": "3b93aa54ae21548498b39b90a81b0e585c725add0d2bcf3b28af2dcfe4f8657a",
+    "registrationTokenExpiresAt": "2026-05-22T10:05:23.716Z",
+    "registrationTokenUsedAt": null
   }
 ]

@@ -4,6 +4,7 @@ import helmet from "helmet";
 import session from "express-session";
 
 import registrationRoutes from "./routes/registrations.js";
+import onboardingRoutes from "./routes/onboarding.js";
 
 const app = express();
 
@@ -74,9 +75,9 @@ app.use(
     */
     strictTransportSecurity: isProduction
       ? {
-          maxAge: 31536000,
-          includeSubDomains: true,
-        }
+        maxAge: 31536000,
+        includeSubDomains: true,
+      }
       : false,
   })
 );
@@ -159,8 +160,10 @@ app.use(
 */
 app.use("/register", registrationRoutes);
 
-
-
+/*
+  Onboarding routes.
+*/
+app.use("/onboarding", onboardingRoutes);
 
 /*
   Midlertidig test-route.
