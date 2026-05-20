@@ -3,7 +3,6 @@ import { activateRegistration, showRegistrationPage, completeRegistration, } fro
 import { requirePendingRegistrationSession, } from "../middleware/requirePendingRegistrationSession.js";
 import { validateCompleteRegistration, } from "../middleware/validateCompleteRegistration.js";
 import { requireCsrfToken, } from "../middleware/requireCsrfToken.js";
-import { generateCsrfToken, hashToken, } from "../utils/tokens.js"; //slet?
 import { deleteCsrfToken } from "../middleware/deleteCsrfToken.js";
 
 
@@ -13,9 +12,9 @@ const router = express.Router();
 router.get("/activate", activateRegistration);
 
 //Selve registreringssiden
-router.get("/", showRegistrationPage );
+router.get("/", requirePendingRegistrationSession, showRegistrationPage );
 //Man må også kun rent faktisk oprette sig hvis man 
-router.post("/", requirePendingRegistrationSession, requireCsrfToken, deleteCsrfToken, validateCompleteRegistration, completeRegistration );
+router.post("/", requirePendingRegistrationSession, requireCsrfToken, validateCompleteRegistration, completeRegistration );
 
 
 export default router;
