@@ -4,9 +4,40 @@ når frontend skal bruge csrf-token, så skal den bruge det her:
     const { csrfToken } = await csrfResponse.json();
 
     await fetch("/upload", {
-    method: "POST",
-    headers: {
-        "x-csrf-token": csrfToken,
-    },
-    body: formData,
+        method: "POST",
+        headers: {
+            "x-csrf-token": csrfToken,
+        },
+        body: formData,
     });
+
+
+
+Vigtigt ift. Vue
+
+Når Vue kører på fx localhost:5173 og backend på localhost:3000, skal frontend bruge:
+
+    credentials: "include"
+
+Ellers sendes session-cookie ikke med.
+
+Eksempel:
+
+const csrfResponse = await fetch("http://localhost:3000/csrf-token", {
+  credentials: "include",
+});
+
+const { csrfToken } = await csrfResponse.json();
+
+const loginResponse = await fetch("http://localhost:3000/auth/login", {
+  method: "POST",
+  credentials: "include",
+  headers: {
+    "Content-Type": "application/json",
+    "x-csrf-token": csrfToken,
+  },
+  body: JSON.stringify({
+    username,
+    password,
+  }),
+});
