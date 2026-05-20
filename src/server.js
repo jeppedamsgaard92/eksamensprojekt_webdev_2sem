@@ -11,7 +11,7 @@ import authRoutes from "./routes/auth.js";
 
 const app = express();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 2000;
 const isProduction = process.env.NODE_ENV === "production";
 
 // Sæt CORS til at tillade alt (skal ligge FØR dine ruter!)
