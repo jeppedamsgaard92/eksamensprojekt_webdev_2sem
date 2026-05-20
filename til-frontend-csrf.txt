@@ -1,0 +1,12 @@
+når frontend skal bruge csrf-token, så skal den bruge det her:
+
+    const csrfResponse = await fetch("/csrf-token");
+    const { csrfToken } = await csrfResponse.json();
+
+    await fetch("/upload", {
+    method: "POST",
+    headers: {
+        "x-csrf-token": csrfToken,
+    },
+    body: formData,
+    });
