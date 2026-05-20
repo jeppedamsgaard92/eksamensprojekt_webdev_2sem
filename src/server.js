@@ -215,7 +215,7 @@ app.use((req, res) => {
 app.use((error, req, res, next) => {
   console.error("Serverfejl:", error);
 
-  res.status(500).send("Der opstod en serverfejl.");
+  res.status(500).json({ message: "Der opstod en serverfejl." });
 });
 
 // starter serveren

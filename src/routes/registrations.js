@@ -3,7 +3,6 @@ import { activateRegistration, showRegistrationPage, completeRegistration, } fro
 import { requirePendingRegistrationSession, } from "../middleware/requirePendingRegistrationSession.js";
 import { validateCompleteRegistration, } from "../middleware/validateCompleteRegistration.js";
 import { requireCsrfToken, } from "../middleware/requireCsrfToken.js";
-import { deleteCsrfToken } from "../middleware/deleteCsrfToken.js";
 import { requireAuth } from "../middleware/requireAuth.js";
 import { requirePermission } from "../middleware/requirePermission.js";
 import { validateAccountInvitation } from "../middleware/validateAccountInvitation.js";

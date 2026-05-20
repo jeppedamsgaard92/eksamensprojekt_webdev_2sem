@@ -1,8 +1,8 @@
 export const roles = {
   admin: {
     permissions: [
-      "account:create-client",
-      "account:create-admin",
+      "create:client-account",
+      "create:admin-account",
     ],
   },
 
