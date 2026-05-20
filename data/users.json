@@ -32,5 +32,17 @@
     "registrationTokenHash": "3b93aa54ae21548498b39b90a81b0e585c725add0d2bcf3b28af2dcfe4f8657a",
     "registrationTokenExpiresAt": "2026-05-22T10:05:23.716Z",
     "registrationTokenUsedAt": null
+  },
+  {
+    "id": "58de0990-54b0-4dbe-ba03-ae7bfa4c5780",
+    "name": "bubba",
+    "role": "client",
+    "email": "f@g.com",
+    "username": "batman123",
+    "passwordHash": "$argon2id$v=19$m=65536,t=3,p=4$mcppWV0JDlpR7q9r2hqnjw$b/7v6A0Y5Gol17FC9olWBtBfpRdnZIQhld1kCdc7gNM",
+    "registrationCompleted": true,
+    "registrationTokenHash": null,
+    "registrationTokenExpiresAt": null,
+    "registrationTokenUsedAt": "2026-05-20T14:36:03.584Z"
   }
 ]
