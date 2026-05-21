@@ -8,6 +8,7 @@ import registrationRoutes from "./routes/registrations.js";
 import onboardingRoutes from "./routes/onboarding.js";
 import csrfRoutes from "./routes/csrf.js";
 import authRoutes from "./routes/auth.js";
+import surveyRoutes from './routes/survey.js'
 
 import path from "path";
 import { fileURLToPath } from "url";
@@ -182,6 +183,11 @@ app.use("/register", registrationRoutes);
   Onboarding routes.
 */
 app.use("/onboarding", onboardingRoutes);
+
+/*
+  Onboarding routes.
+*/
+app.use("/survey", surveyRoutes);
 
 /*
   CSRF routes.
