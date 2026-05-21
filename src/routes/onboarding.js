@@ -3,6 +3,9 @@ import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { getAllPdfFiles, uploadPdfFiles, sendOnboardingInvitation } from '../controllers/onboarding.js';
+import { requireAuth } from '../middleware/requireAuth.js';
+import { requirePermission } from '../middleware/requirePermission.js';
+import { requireCsrfToken } from '../middleware/requireCsrfToken.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
