@@ -1,10 +1,12 @@
 import express from 'express';
-import { getSurveyQuestions, uploadSurveyFile } from '../controllers/survey.js';
+import { getSurveyQuestions, uploadAnsweredSurvey, uploadSurveyFile } from '../controllers/survey.js';
 
 const router = express.Router();
 
-router.post('/new-survey', uploadSurveyFile);
+router.post('/new-survey', /* erLoggetInd, erAdmin */ uploadSurveyFile);
 
-router.get('/survey-questions', /* erLoggetInd, erAdmin */ getSurveyQuestions)
+router.get('/survey-questions', getSurveyQuestions);
+
+router.post('/survey-answers', uploadAnsweredSurvey);
 
 export default router;

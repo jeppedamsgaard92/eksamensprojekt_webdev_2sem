@@ -16,6 +16,16 @@ export function uploadPdfFiles(req, res) {
             return res.status(400).json({ success: false, message: 'Ingen filer modtaget.' });
         }
 
+        // TJEK: Gå igennem alle filer og valider at det KUN er PDF'er
+        const indeholderIkkePdf = req.files.some(file => file.mimetype !== 'application/pdf');
+
+        if (indeholderIkkePdf) {
+            return res.status(400).json({
+                success: false,
+                message: 'Forkert filformat! Du må kun uploade PDF-filer.'
+            });
+        }
+
         const gemteFiler = req.files.map(file => {
             return {
                 fileName: file.originalname, // Det rigtige navn, f.eks. "onboarding.pdf"

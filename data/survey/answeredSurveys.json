@@ -1,1 +1,46 @@
-[]
+[
+    {
+        "surveyId": "1ebb978e-ea85-414f-92c7-dc0a49dcf500",
+        "hasRegisteredClient": false,
+        "survey": [
+            {
+                "question": "spøgsmål 1",
+                "answer": "Svar 1"
+            },
+            {
+                "question": "spøgsmål 2",
+                "answer": "Svar 2"
+            },
+            {
+                "question": "spøgsmål 3",
+                "answer": "Svar 3"
+            },
+            {
+                "question": "spøgsmål 4",
+                "answer": "Svar 4"
+            }
+        ]
+    },
+    {
+        "surveyId": "af473e43-3d3e-4bbf-a9da-4b472eaf5c49",
+        "hasRegisteredClient": false,
+        "survey": [
+            {
+                "question": "spøgsmål 1",
+                "answer": "Svar 1"
+            },
+            {
+                "question": "spøgsmål 2",
+                "answer": "Svar 2"
+            },
+            {
+                "question": "spøgsmål 3",
+                "answer": "Svar 3"
+            },
+            {
+                "question": "spøgsmål 4",
+                "answer": "Svar 4"
+            }
+        ]
+    }
+]
