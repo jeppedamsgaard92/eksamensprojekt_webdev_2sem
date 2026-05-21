@@ -54,3 +54,21 @@ export async function getAllPdfFiles(req, res) {
     }
 }
 
+// Til at sende invitation til onboarding
+export async function sendOnboardingInvitation(req, res, next) {
+  try {
+    const { userId } = req.params;
+
+    const { user, registrationLink } =
+      await createRegistrationInvitationForUser(userId);
+
+    res.status(200).json({
+      message: "Onboarding invitation sent.",
+      user,
+      registrationLink,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+

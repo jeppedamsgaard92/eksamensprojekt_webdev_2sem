@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.post("/login", requireCsrfToken, validateLogin, login);
 
-router.get("/me", requireAuth, getCurrentUser);
+router.get("/user", requireAuth, getCurrentUser);
 
 router.post("/logout", requireCsrfToken, requireAuth, logout);
 

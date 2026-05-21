@@ -44,5 +44,17 @@
     "registrationTokenHash": null,
     "registrationTokenExpiresAt": null,
     "registrationTokenUsedAt": "2026-05-20T14:36:03.584Z"
+  },
+  {
+    "id": "3755281c-a21b-45b4-8e9c-e51564980010",
+    "name": "novonordisk",
+    "role": "client",
+    "email": "novo@hej.com",
+    "username": "novonordisk",
+    "passwordHash": "$argon2id$v=19$m=65536,t=3,p=4$G+dTON8Wq7sR1njR44axkQ$WY16B2wj3UnRoFiNSTHsfd34r39QvgabsXeHhaCb3Uk",
+    "registrationCompleted": true,
+    "registrationTokenHash": null,
+    "registrationTokenExpiresAt": null,
+    "registrationTokenUsedAt": "2026-05-21T09:12:10.631Z"
   }
 ]
