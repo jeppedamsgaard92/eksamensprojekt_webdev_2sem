@@ -56,5 +56,77 @@
     "registrationTokenHash": null,
     "registrationTokenExpiresAt": null,
     "registrationTokenUsedAt": "2026-05-21T09:12:10.631Z"
+  },
+  {
+    "id": "adaf10c5-4701-40ad-bbef-20a7fcccbfe3",
+    "name": "tarzan",
+    "role": "client",
+    "email": "kaka@kuku.com",
+    "username": null,
+    "passwordHash": null,
+    "registrationCompleted": false,
+    "registrationTokenHash": null,
+    "registrationTokenExpiresAt": null,
+    "registrationTokenUsedAt": null
+  },
+  {
+    "id": "36dc5a3d-5988-49ba-8e7e-22ede15688f4",
+    "name": "Clayton",
+    "role": "admin",
+    "email": "haha@xn--hh-lkab.com",
+    "username": null,
+    "passwordHash": null,
+    "registrationCompleted": false,
+    "registrationTokenHash": "4df82891168b10d896be43cede040e5706ff2e19313ad223ce780a907f471c8f",
+    "registrationTokenExpiresAt": "2026-05-23T13:18:59.938Z",
+    "registrationTokenUsedAt": null
+  },
+  {
+    "id": "ba095bbf-f780-4cb0-afca-7f83a37f3561",
+    "name": "Ronaldo",
+    "role": "admin",
+    "email": "ro@go.com",
+    "username": null,
+    "passwordHash": null,
+    "registrationCompleted": false,
+    "registrationTokenHash": "343b680db706eccb17b2eb5d3a3987e9c5b4b25c3bca46bb5ffb492a776be292",
+    "registrationTokenExpiresAt": "2026-05-23T13:25:53.536Z",
+    "registrationTokenUsedAt": null
+  },
+  {
+    "id": "b8adff1e-6e01-4c77-afbd-c574e175594b",
+    "name": "blabla",
+    "role": "admin",
+    "email": "kk@gt.com",
+    "username": null,
+    "passwordHash": null,
+    "registrationCompleted": false,
+    "registrationTokenHash": "803149b01a56b6efced0434cf3acc441fd78bceabf0f4f3c0a557148a460934e",
+    "registrationTokenExpiresAt": "2026-05-23T13:28:58.524Z",
+    "registrationTokenUsedAt": null
+  },
+  {
+    "id": "109b0dba-0a4b-4b9e-8140-59c57bcd6b1f",
+    "name": "hey",
+    "role": "client",
+    "email": "s@tre.com",
+    "username": null,
+    "passwordHash": null,
+    "registrationCompleted": false,
+    "registrationTokenHash": "06dbdd82090979c4902e4356deeb9fb92ed023c3e339833eb4416cddf8e8ca6e",
+    "registrationTokenExpiresAt": "2026-05-23T13:41:24.321Z",
+    "registrationTokenUsedAt": null
+  },
+  {
+    "id": "ee80b8cb-3247-44ad-8452-daed04f321dd",
+    "name": "nyadmin",
+    "role": "admin",
+    "email": "fsd@gg.com",
+    "username": null,
+    "passwordHash": null,
+    "registrationCompleted": false,
+    "registrationTokenHash": "a89801efdf112375699a9f5869193f0c1196154f8ac39e822dc907af929ce2f4",
+    "registrationTokenExpiresAt": "2026-05-23T13:41:40.285Z",
+    "registrationTokenUsedAt": null
   }
 ]
