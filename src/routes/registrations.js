@@ -5,7 +5,7 @@ import { validateCompleteRegistration, } from "../middleware/validateCompleteReg
 import { requireCsrfToken, } from "../middleware/requireCsrfToken.js";
 import { requireAuth } from "../middleware/requireAuth.js";
 import { requirePermission } from "../middleware/requirePermission.js";
-import { validateAccountInvitation } from "../middleware/validateAccountInvitation.js";
+import { validateAccountCreation } from "../middleware/validateAccountCreation.js";
 import { createNewClientAccount, createNewAdminAccount } from "../controllers/admin.js";
 
 
@@ -26,7 +26,7 @@ router.post(
   requireAuth,
   requirePermission("create:client-account"),
   requireCsrfToken,
-  validateAccountInvitation,
+  validateAccountCreation,
   createNewClientAccount
 );
 
@@ -35,7 +35,7 @@ router.post(
   requireAuth,
   requirePermission("create:admin-account"),
   requireCsrfToken,
-  validateAccountInvitation,
+  validateAccountCreation,
   createNewAdminAccount
 );
 
