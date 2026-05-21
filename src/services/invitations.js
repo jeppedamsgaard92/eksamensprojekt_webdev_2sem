@@ -28,7 +28,7 @@ const APP_BASE_URL = process.env.APP_BASE_URL || "http://localhost:3000";
   - username/password er stadig tomme
   - der laves IKKE registration-token endnu
 */
-export async function createPendingUserAccount({ name, email, role }) {
+export async function createPendingUserAccount({ id, name, email, role }) {
   // Der må ikke oprettes flere brugere med samme email.
   const existingUser = await findUserByEmail(email);
 
@@ -46,7 +46,7 @@ export async function createPendingUserAccount({ name, email, role }) {
     - personen kan ikke logge ind endnu
   */
   const newUser = {
-    id: crypto.randomUUID(),
+    id,
     name,
     role,
     email,
