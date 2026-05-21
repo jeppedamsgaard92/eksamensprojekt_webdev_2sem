@@ -20,7 +20,7 @@ router.get("/", requirePendingRegistrationSession, showRegistrationPage );
 router.post("/", requirePendingRegistrationSession, requireCsrfToken, validateCompleteRegistration, completeRegistration );
 
 
-// tilføjelse af nye routes for admin til at oprette klient og admin accounts
+// admin til at oprette klient og admin accounts
 router.post(
   "/create-new-client-account",
   requireAuth,

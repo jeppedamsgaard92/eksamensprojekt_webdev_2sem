@@ -3,6 +3,7 @@ export const roles = {
     permissions: [
       "create:client-account",
       "create:admin-account",
+      "account:send-onboarding-invitation"
     ],
   },
 

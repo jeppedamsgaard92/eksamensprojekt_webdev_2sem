@@ -2,7 +2,10 @@ import express from 'express';
 import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { getAllPdfFiles, uploadPdfFiles } from '../controllers/onboarding.js';
+import { getAllPdfFiles, uploadPdfFiles, sendOnboardingInvitation } from '../controllers/onboarding.js';
+import { requireAuth } from '../middleware/requireAuth.js';
+import { requirePermission } from '../middleware/requirePermission.js';
+import { requireCsrfToken } from '../middleware/requireCsrfToken.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -27,6 +30,9 @@ const router = express.Router();
 router.post('/pdf-slides', /* LoggetInd, requireAdmin */ upload.array('files'), uploadPdfFiles);
 
 router.get('/pdf-slides', /* LoggetInd, requireAdmin */ getAllPdfFiles)
+
+//til at sende invitation til onboarding
+router.post("/:userId/onboarding", requireAuth, requirePermission("account:send-onboarding-invitation"), requireCsrfToken, sendOnboardingInvitation);
 
 export default router;
 

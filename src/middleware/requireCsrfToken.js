@@ -2,7 +2,7 @@ import { hashToken } from "../utils/tokens.js";
 
 export function requireCsrfToken(req, res, next) {
   // Henter CSRF-token fra enten HTML-formular eller frontend request-header.
-  const csrfToken = req.body._csrf || req.get("x-csrf-token");
+  const csrfToken = req.body?._csrf || req.get("x-csrf-token");
 
   // Stopper requesten, hvis token mangler eller ikke er tekst.
   if (typeof csrfToken !== "string" || csrfToken.trim() === "") {

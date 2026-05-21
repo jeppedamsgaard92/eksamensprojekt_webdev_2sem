@@ -2,6 +2,7 @@ import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
 import multer from "multer";
+import { createRegistrationInvitationForUser } from "../services/invitations.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -62,5 +63,23 @@ export async function getAllPdfFiles(req, res) {
     } catch (error) {
         return res.status(500).json({ success: false, message: "Kunne ikke hente filer." });
     }
+}
+
+// Til at sende invitation til onboarding
+export async function sendOnboardingInvitation(req, res, next) {
+  try {
+    const { userId } = req.params;
+
+    const { user, registrationLink } =
+      await createRegistrationInvitationForUser(userId);
+
+    res.status(200).json({
+      message: "Onboarding invitation sent.",
+      user,
+      registrationLink,
+    });
+  } catch (error) {
+    next(error);
+  }
 }
 
