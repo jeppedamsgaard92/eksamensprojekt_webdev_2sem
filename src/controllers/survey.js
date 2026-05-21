@@ -96,3 +96,16 @@ export async function uploadAnsweredSurvey(req, res) {
         return res.status(500).json({ success: false, message: "Kunne ikke gemme survey-besvarelsen på server" });
     }
 }
+
+export async function getAvailableAnsweredSurveys(req, res, next) {
+  try {
+    const answeredSurveys =
+      await getUnregisteredAnsweredSurveys();
+
+    res.status(200).json({
+      answeredSurveys,
+    });
+  } catch (error) {
+    next(error);
+  }
+}

@@ -42,5 +42,15 @@
                 "answer": "Svar 4"
             }
         ]
+    },
+    {
+        "surveyId": "dummy-survey-001",
+        "hasRegisteredClient": false,
+        "survey": [
+        {
+            "question": "spørgsmål 1",
+            "answer": "Svar 1"
+        }
+        ]
     }
 ]
