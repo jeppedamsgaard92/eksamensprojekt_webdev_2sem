@@ -5,6 +5,7 @@ import multer from "multer";
 import { createRegistrationInvitationForUser } from "../services/invitations.js";
 import { getAllSavedYoutubeLinks } from "../dataUtils/onboarding.js";
 import crypto from 'crypto';
+import { sendRegistrationInvitationEmail } from "../services/email.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -141,13 +142,12 @@ export async function getSavedYoutubeLinks(req, res) {
 }
 
 // Til at sende invitation til onboarding
+/* til prototype uden email integration
 export async function sendOnboardingInvitation(req, res, next) {
     try {
         const { userId } = req.params;
-
         const { user, registrationLink } =
             await createRegistrationInvitationForUser(userId);
-
         res.status(200).json({
             message: "Onboarding invitation sent.",
             user,
@@ -156,5 +156,25 @@ export async function sendOnboardingInvitation(req, res, next) {
     } catch (error) {
         next(error);
     }
+}*/
+
+//med Resend integration for at sende emailen med invitationen
+export async function sendOnboardingInvitation(req, res, next) {
+  try {
+    const { userId } = req.params;
+    const { user, registrationLink } = await createRegistrationInvitationForUser(userId);
+    await sendRegistrationInvitationEmail({
+      to: user.email,
+      name: user.name,
+      registrationLink,
+    });
+
+    res.status(200).json({
+      message: "Onboarding invitation sent.",
+      user,
+    });
+  } catch (error) {
+    next(error);
+  }
 }
 

@@ -112,7 +112,7 @@ export async function createRegistrationInvitationForUser(userId) {
 
   // Link med rå token. Det er dette link, brugeren åbner fra emailen.
   const registrationLink = `${APP_BASE_URL}/register/activate?token=${registrationToken}`;
-  console.log(`Registration link for ${user.email}: ${registrationLink}`);
+  //console.log(`Registration link for ${user.email}: ${registrationLink}`);
 
   return {
     user: updatedUser,
