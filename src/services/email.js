@@ -23,7 +23,7 @@ export async function sendRegistrationInvitationEmail({ to, name, registrationLi
           Complete registration
         </a>
       </p>
-      <p>This link expires automatically.</p>
+      <p>This invitation expires automatically.</p>
     `,
   });
 

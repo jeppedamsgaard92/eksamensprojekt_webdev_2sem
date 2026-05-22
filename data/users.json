@@ -188,5 +188,17 @@
     "registrationTokenHash": "eeba52601fa08845816c8cec26322fb0569a15fbe1b0e02cfea25cacbd9a70b7",
     "registrationTokenExpiresAt": "2026-05-24T07:19:34.409Z",
     "registrationTokenUsedAt": null
+  },
+  {
+    "id": "107442bb-a6ba-4329-9889-346fc280efb9",
+    "name": "Jeppe",
+    "role": "client",
+    "email": "jeppedamsgaard92@gmail.com",
+    "username": null,
+    "passwordHash": null,
+    "registrationCompleted": false,
+    "registrationTokenHash": "e06bdebbf1624ec03d89fa18be58eabaec79778ea2964e8d9edb521fcfccb4d9",
+    "registrationTokenExpiresAt": "2026-05-24T13:06:38.895Z",
+    "registrationTokenUsedAt": null
   }
 ]

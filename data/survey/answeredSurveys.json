@@ -131,7 +131,7 @@
     },
     {
         "surveyId": "107442bb-a6ba-4329-9889-346fc280efb9",
-        "hasRegisteredClient": false,
+        "hasRegisteredClient": true,
         "survey": [
             {
                 "question": "spøgsmål 1",
