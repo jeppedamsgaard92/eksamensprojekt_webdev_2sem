@@ -2,7 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { getAllPdfFiles, uploadPdfFiles, sendOnboardingInvitation } from '../controllers/onboarding.js';
+import { getAllPdfFiles, uploadPdfFiles, sendOnboardingInvitation, uploadYoutubeLinks, getSavedYoutubeLinks } from '../controllers/onboarding.js';
 import { requireAuth } from '../middleware/requireAuth.js';
 import { requirePermission } from '../middleware/requirePermission.js';
 import { requireCsrfToken } from '../middleware/requireCsrfToken.js';
@@ -29,7 +29,11 @@ const router = express.Router();
 // ROUTES
 router.post('/pdf-slides', /* LoggetInd, requireAdmin */ upload.array('files'), uploadPdfFiles);
 
-router.get('/pdf-slides', /* LoggetInd, requireAdmin */ getAllPdfFiles)
+router.get('/pdf-slides', /* LoggetInd, requireAdmin */ getAllPdfFiles);
+
+router.post('/youtube-links', /* requireAuth, requirePermission("upload-youtube-links-lol") */ uploadYoutubeLinks);
+
+router.get('/youtube-links', /* requireAuth, requirePermission("upload-youtube-links-lol") */ getSavedYoutubeLinks);
 
 //til at sende invitation til onboarding
 router.post("/:userId/onboarding", requireAuth, requirePermission("account:send-onboarding-invitation"), requireCsrfToken, sendOnboardingInvitation);
