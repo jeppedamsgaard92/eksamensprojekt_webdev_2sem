@@ -168,7 +168,32 @@ const endpoints = {
             message: 'fejlbesked'
         }
     },
-
+     '.get("/survey/answered-surveys")': {
+        forklaring: 'Til at få nye besvarede surveys (ikke linkede)',
+        hvis_res_ok: [
+            {
+                surveyId: "et-id",
+                survey: [
+                    {
+                        question: 'spørgsmål 1',
+                        answer: 'Svar 1'
+                    },
+                    {
+                        question: 'spørgsmål 2',
+                        answer: 'Svar 2'
+                    },
+                    {
+                        question: 'spørgsmål 3',
+                        answer: 'Svar 3'
+                    }
+                ]
+            }
+        ],
+        hvis_res_IKKE_ok: {
+            success: false,
+            message: 'fejlbesked'
+        }
+    },          
     '.post("/register/create-new-client-account/:surveyId")': {
         forklaring: 'Admin opretter ny klient bruger ved at sende brugernavn og email i body. Send det relaterede surveyId med i params så server ved hvilken survey der skal tilknyttes konto',
         hvis_res_ok: {

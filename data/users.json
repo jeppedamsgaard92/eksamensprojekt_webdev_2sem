@@ -128,5 +128,65 @@
     "registrationTokenHash": "a89801efdf112375699a9f5869193f0c1196154f8ac39e822dc907af929ce2f4",
     "registrationTokenExpiresAt": "2026-05-23T13:41:40.285Z",
     "registrationTokenUsedAt": null
+  },
+  {
+    "id": "f4ce2da9-25b1-435e-8e7c-f46cd431ae95",
+    "name": "surveyman",
+    "role": "client",
+    "email": "123@123.com",
+    "username": "surveyman",
+    "passwordHash": "$argon2id$v=19$m=65536,t=3,p=4$oBTNACJxqWw/2SOYiVyuzw$nkz8hr0rayzA1sNpyyABCHmI5tlCoPsnGD91+zr2/G8",
+    "registrationCompleted": true,
+    "registrationTokenHash": null,
+    "registrationTokenExpiresAt": null,
+    "registrationTokenUsedAt": "2026-05-21T16:36:34.624Z"
+  },
+  {
+    "id": "9766c53a-702a-401a-bf99-c6d0cbcd14c8",
+    "name": "adminman",
+    "role": "admin",
+    "email": "store@nosser.com",
+    "username": "adminman",
+    "passwordHash": "$argon2id$v=19$m=65536,t=3,p=4$WxB6uXaFrwJlrjDGXN5wzA$ztlY9TAO9UShJDb6/e/CMW42c2xekCkXz0whlkMsDDQ",
+    "registrationCompleted": true,
+    "registrationTokenHash": null,
+    "registrationTokenExpiresAt": null,
+    "registrationTokenUsedAt": "2026-05-21T16:52:34.656Z"
+  },
+  {
+    "id": "af473e43-3d3e-4bbf-a9da-4b472eaf5c49",
+    "name": "fucking det virker",
+    "role": "client",
+    "email": "yes@hurra.com",
+    "username": "fuck",
+    "passwordHash": "$argon2id$v=19$m=65536,t=3,p=4$ZPo1P63IC/K/cGpApVdQqw$vs+daiJ1FCJDk6lkLFEe7/+1ZDybW8hV9vZMgSqsHXM",
+    "registrationCompleted": true,
+    "registrationTokenHash": null,
+    "registrationTokenExpiresAt": null,
+    "registrationTokenUsedAt": "2026-05-21T16:54:43.180Z"
+  },
+  {
+    "id": "7127ff9f-f8c3-4679-9db6-98807b410505",
+    "name": "pikhoved",
+    "role": "client",
+    "email": "pik@hoved.com",
+    "username": "rovhul",
+    "passwordHash": "$argon2id$v=19$m=65536,t=3,p=4$WZnS5wd99mA3Oc9tbQmOEw$UmDHmyDuCMqxgoDm5h4/sY1qmSNQfP0wbUcJFS7YPpY",
+    "registrationCompleted": true,
+    "registrationTokenHash": null,
+    "registrationTokenExpiresAt": null,
+    "registrationTokenUsedAt": "2026-05-22T07:15:10.370Z"
+  },
+  {
+    "id": "0f84a62e-29da-43bc-a524-ca15d8a5e050",
+    "name": "adminNar",
+    "role": "admin",
+    "email": "admin@nar.com",
+    "username": null,
+    "passwordHash": null,
+    "registrationCompleted": false,
+    "registrationTokenHash": "eeba52601fa08845816c8cec26322fb0569a15fbe1b0e02cfea25cacbd9a70b7",
+    "registrationTokenExpiresAt": "2026-05-24T07:19:34.409Z",
+    "registrationTokenUsedAt": null
   }
 ]

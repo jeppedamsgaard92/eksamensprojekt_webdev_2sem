@@ -17,7 +17,7 @@ import {
 const REGISTRATION_TOKEN_EXPIRY_MS = 1000 * 60 * 60 * 48;
 
 // Base URL bruges til at bygge det link, der senere skal sendes i emailen.
-const APP_BASE_URL = process.env.APP_BASE_URL || "http://localhost:3000";
+const APP_BASE_URL = process.env.APP_BASE_URL || "http://localhost:2000";
 
 /*
   Opretter en bruger i systemet uden at starte registreringsprocessen.

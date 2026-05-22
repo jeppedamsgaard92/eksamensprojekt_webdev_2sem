@@ -1,16 +1,20 @@
+import crypto from "crypto";
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
 
+// Finder korrekt sti fra denne fil.
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Sti til alle besvarede surveys.
 const pathToAnsweredSurveys = path.join(
   __dirname,
   "../../data/survey/answeredSurveys.json"
 );
 
 export async function getAllAnsweredSurveys() {
+  // Læser alle gemte survey-besvarelser.
   const fileContent = await fs.readFile(
     pathToAnsweredSurveys,
     "utf-8"
@@ -19,23 +23,57 @@ export async function getAllAnsweredSurveys() {
   return JSON.parse(fileContent);
 }
 
-export async function findAnsweredSurveyById(surveyId) {
-  const surveys = await getAllAnsweredSurveys();
+async function saveAllAnsweredSurveys(answeredSurveys) {
+  // Gemmer hele listen tilbage i JSON-filen.
+  await fs.writeFile(
+    pathToAnsweredSurveys,
+    JSON.stringify(answeredSurveys, null, 4),
+    "utf-8"
+  );
+}
 
+export async function createAnsweredSurvey(surveyAnswers) {
+  const answeredSurveys = await getAllAnsweredSurveys();
+
+  // Serveren opretter selv id'et.
+  const newAnsweredSurvey = {
+    surveyId: crypto.randomUUID(),
+    hasRegisteredClient: false,
+    survey: surveyAnswers,
+  };
+
+  answeredSurveys.push(newAnsweredSurvey);
+
+  await saveAllAnsweredSurveys(answeredSurveys);
+
+  return newAnsweredSurvey;
+}
+
+export async function getNewAnsweredSurveys() {
+  const answeredSurveys = await getAllAnsweredSurveys();
+
+  // Returnerer kun surveys, der ikke er brugt til client endnu.
+  return answeredSurveys.filter(
+    (survey) => survey.hasRegisteredClient === false
+  );
+}
+
+export async function findAnsweredSurveyById(surveyId) {
+  const answeredSurveys = await getAllAnsweredSurveys();
+
+  // Finder én survey ud fra dens server-genererede id.
   return (
-    surveys.find(
+    answeredSurveys.find(
       (survey) => survey.surveyId === surveyId
     ) ?? null
   );
 }
 
-export async function updateAnsweredSurveyById(
-  surveyId,
-  updates
-) {
-  const surveys = await getAllAnsweredSurveys();
+export async function updateAnsweredSurveyById(surveyId, updates) {
+  const answeredSurveys = await getAllAnsweredSurveys();
 
-  const surveyIndex = surveys.findIndex(
+  // Finder placeringen i arrayet.
+  const surveyIndex = answeredSurveys.findIndex(
     (survey) => survey.surveyId === surveyId
   );
 
@@ -43,26 +81,15 @@ export async function updateAnsweredSurveyById(
     return null;
   }
 
+  // Beholder gamle data og overskriver kun det nye.
   const updatedSurvey = {
-    ...surveys[surveyIndex],
+    ...answeredSurveys[surveyIndex],
     ...updates,
   };
 
-  surveys[surveyIndex] = updatedSurvey;
+  answeredSurveys[surveyIndex] = updatedSurvey;
 
-  await fs.writeFile(
-    pathToAnsweredSurveys,
-    JSON.stringify(surveys, null, 4),
-    "utf-8"
-  );
+  await saveAllAnsweredSurveys(answeredSurveys);
 
   return updatedSurvey;
-}
-
-export async function getUnregisteredAnsweredSurveys() {
-  const surveys = await getAllAnsweredSurveys();
-
-  return surveys.filter(
-    (survey) => survey.hasRegisteredClient === false
-  );
 }

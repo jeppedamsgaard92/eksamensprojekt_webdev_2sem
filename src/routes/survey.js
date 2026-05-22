@@ -1,6 +1,7 @@
 import express from 'express';
-import { getSurveyQuestions, uploadAnsweredSurvey, uploadSurveyFile } from '../controllers/survey.js';
-
+import { getSurveyQuestions, uploadAnsweredSurvey, uploadSurveyFile, getUnlinkedAnsweredSurveys } from '../controllers/survey.js';
+import { requireAuth } from '../middleware/requireAuth.js';
+import { requirePermission } from '../middleware/requirePermission.js';
 
 
 
@@ -13,10 +14,10 @@ router.get('/survey-questions', getSurveyQuestions);
 router.post('/survey-answers', uploadAnsweredSurvey);
 
 router.get(
-  "/available-answered-surveys",
-  requireAuth,
-  requirePermission("create:client-account"),
-  getAvailableAnsweredSurveys
+  "/answered-surveys",
+  /*requireAuth,
+  requirePermission("create:client-account"),*/
+  getUnlinkedAnsweredSurveys
 );
 
 export default router;

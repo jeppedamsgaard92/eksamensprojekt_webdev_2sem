@@ -1,3 +1,5 @@
+import crypto from "crypto";
+
 import {
   createPendingUserAccount,
 } from "../services/invitations.js";
@@ -7,31 +9,28 @@ import {
   updateAnsweredSurveyById,
 } from "../dataUtils/surveys.js";
 
-import crypto from "crypto";
-
 export async function createNewClientAccount(req, res, next) {
   try {
     const { name, email } = req.validatedData;
     const { id } = req.params;
 
-    const survey =
-      await findAnsweredSurveyById(id);
+    // Tjekker at survey-id'et faktisk findes.
+    const survey = await findAnsweredSurveyById(id);
 
-    // Survey-id skal eksistere.
     if (!survey) {
       return res.status(400).json({
         message: "Invalid survey id.",
       });
     }
 
-    // Man må ikke oprette flere clients ud fra samme survey.
+    // Samme survey må kun bruges én gang.
     if (survey.hasRegisteredClient) {
       return res.status(409).json({
-        message:
-          "A client has already been registered from this survey.",
+        message: "A client has already been registered from this survey.",
       });
     }
 
+    // Client får samme id som surveyen.
     const user = await createPendingUserAccount({
       id,
       name,
@@ -39,7 +38,7 @@ export async function createNewClientAccount(req, res, next) {
       role: "client",
     });
 
-    // Marker survey som brugt.
+    // Survey markeres som brugt.
     await updateAnsweredSurveyById(id, {
       hasRegisteredClient: true,
     });
@@ -57,6 +56,7 @@ export async function createNewAdminAccount(req, res, next) {
   try {
     const { name, email } = req.validatedData;
 
+    // Admin er ikke koblet til survey.
     const user = await createPendingUserAccount({
       id: crypto.randomUUID(),
       name,
