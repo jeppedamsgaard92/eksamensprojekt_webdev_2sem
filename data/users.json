@@ -197,8 +197,8 @@
     "username": null,
     "passwordHash": null,
     "registrationCompleted": false,
-    "registrationTokenHash": "e06bdebbf1624ec03d89fa18be58eabaec79778ea2964e8d9edb521fcfccb4d9",
-    "registrationTokenExpiresAt": "2026-05-24T13:06:38.895Z",
+    "registrationTokenHash": "9d9aacc7853562d3211316c64f48068cedbf8653f80e75d9215ac92a3a83571a",
+    "registrationTokenExpiresAt": "2026-05-25T13:56:45.918Z",
     "registrationTokenUsedAt": null
   }
 ]
