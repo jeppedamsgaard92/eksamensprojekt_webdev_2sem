@@ -178,18 +178,6 @@
     "registrationTokenUsedAt": "2026-05-22T07:15:10.370Z"
   },
   {
-    "id": "0f84a62e-29da-43bc-a524-ca15d8a5e050",
-    "name": "adminNar",
-    "role": "admin",
-    "email": "admin@nar.com",
-    "username": null,
-    "passwordHash": null,
-    "registrationCompleted": false,
-    "registrationTokenHash": "eeba52601fa08845816c8cec26322fb0569a15fbe1b0e02cfea25cacbd9a70b7",
-    "registrationTokenExpiresAt": "2026-05-24T07:19:34.409Z",
-    "registrationTokenUsedAt": null
-  },
-  {
     "id": "107442bb-a6ba-4329-9889-346fc280efb9",
     "name": "Jeppe",
     "role": "client",

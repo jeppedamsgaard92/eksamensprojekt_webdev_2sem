@@ -8,7 +8,6 @@ import crypto from 'crypto';
 import { sendRegistrationInvitationEmail } from "../services/email.js";
 import { findUserById } from "../dataUtils/users.js";
 import { onboardingCourseSchema } from "../schemas/onboarding.js";
-import { success } from "zod";
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -229,6 +228,7 @@ export async function sendOnboardingInvitation(req, res, next) {
         });
 
         res.status(200).json({
+            success: true,
             message: "Onboarding invitation sent.",
             user,
         });

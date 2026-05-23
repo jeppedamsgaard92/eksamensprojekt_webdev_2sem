@@ -15,9 +15,9 @@ const router = express.Router();
 router.get("/activate", activateRegistration);
 
 //Selve registreringssiden
-router.get("/", requirePendingRegistrationSession, showRegistrationPage );
+router.get("/", requirePendingRegistrationSession, showRegistrationPage);
 //Man må også kun rent faktisk oprette sig hvis man 
-router.post("/", requirePendingRegistrationSession, requireCsrfToken, validateCompleteRegistration, completeRegistration );
+router.post("/", requirePendingRegistrationSession, requireCsrfToken, validateCompleteRegistration, completeRegistration);
 
 
 // admin til at oprette klient og admin accounts

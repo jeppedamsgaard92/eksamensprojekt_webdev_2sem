@@ -29,6 +29,20 @@ export async function findUserById(userId) {
     return users.find((user) => user.id === userId) ?? null;
 }
 
+// sletter en bruger ud fra id
+export async function deleteUserById(id) {
+    const allUsers = await getAllUsers();
+
+    // Filtrér listen så vi beholder alle brugere, UNDTAGEN den der skal slettes
+    const filteredUsers = allUsers.filter((user) => user.id !== id);
+
+    // Gem den opdaterede liste tilbage i users.json
+    await saveAllUsers(filteredUsers);
+
+    // returnerer true hvis bruger blev slettet og false hvis brugeren ikke fandtes
+    return filteredUsers.length < allUsers.length;
+}
+
 //Finder bruger ud fra email.
 export async function findUserByEmail(email) {
     const users = await getAllUsers();
@@ -102,18 +116,18 @@ export async function updateUserById(userId, updates) {
 // Når en bruger åbner et registreringslink, hasher serveren tokenen fra URL'en og bruger denne funktion til at finde den tilhørende bruger.
 
 export async function findUserByRegistrationTokenHash(tokenHash) {
-  const users = await getAllUsers();
+    const users = await getAllUsers();
 
-  return (
-    users.find(
-      (user) => user.registrationTokenHash === tokenHash
-    ) ?? null
-  );
+    return (
+        users.find(
+            (user) => user.registrationTokenHash === tokenHash
+        ) ?? null
+    );
 }
 
 //Finder én bruger ud fra username.
 export async function findUserByUsername(username) {
-  const users = await getAllUsers();
+    const users = await getAllUsers();
 
-  return users.find((user) => user.username === username) ?? null;
+    return users.find((user) => user.username === username) ?? null;
 }
