@@ -1,0 +1,47 @@
+[
+    {
+        "courseId": "f322525f-3d5c-4f56-8047-8a32d2206342",
+        "onboardingSlides": [
+            {
+                "type": "pdf",
+                "src": "http://localhost:2000/pdfSlidesDB/120_904682 Infinity Classic Panel.pdf",
+                "complete": false
+            },
+            {
+                "type": "youtube",
+                "src": "https://www.youtube.com/watch?v=w9HOvlhIlBgPIK",
+                "complete": false
+            }
+        ]
+    },
+    {
+        "courseId": "a87e8fdc-4723-42ac-a568-bddd0cfe78e4",
+        "onboardingSlides": [
+            {
+                "type": "pdf",
+                "src": "http://localhost:2000/pdfSlidesDB/120_904682 Infinity Classic Panel.pdf",
+                "complete": false
+            },
+            {
+                "type": "youtube",
+                "src": "https://www.youtube.com/watch?v=w9HOvlhIlBg",
+                "complete": false
+            }
+        ]
+    },
+    {
+        "courseId": "36dc5a3d-5988-49ba-8e7e-22ede15688f4",
+        "onboardingSlides": [
+            {
+                "type": "pdf",
+                "src": "http://localhost:2000/pdfSlidesDB/120_904682 Infinity Classic Panel.pdf",
+                "complete": false
+            },
+            {
+                "type": "youtube",
+                "src": "https://www.youtube.com/watch?v=w9HOvlhIlBg",
+                "complete": false
+            }
+        ]
+    }
+]

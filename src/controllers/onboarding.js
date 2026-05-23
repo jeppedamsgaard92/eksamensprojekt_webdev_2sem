@@ -3,9 +3,11 @@ import path from "path";
 import { fileURLToPath } from "url";
 import multer from "multer";
 import { createRegistrationInvitationForUser } from "../services/invitations.js";
-import { getAllSavedYoutubeLinks } from "../dataUtils/onboarding.js";
+import { addCourse, getAllSavedYoutubeLinks } from "../dataUtils/onboarding.js";
 import crypto from 'crypto';
 import { sendRegistrationInvitationEmail } from "../services/email.js";
+import { findUserById } from "../dataUtils/users.js";
+import { onboardingCourseSchema } from "../schemas/onboarding.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -141,6 +143,49 @@ export async function getSavedYoutubeLinks(req, res) {
     }
 }
 
+// Til at oprette onboarding course til specifik klient
+export async function createOnboardingCourse(req, res, next) {
+    const { userId } = req.params;
+
+    const userTarget = await findUserById(userId);
+
+    if (!userTarget) {
+        return res.status(404).json({
+            success: false,
+            message: "Kunne ikke oprette kursus: Brugeren blev ikke fundet i systemet."
+        });
+    }
+
+    const incomingSlides = req.body;
+
+    const validation = onboardingCourseSchema.safeParse(incomingSlides);
+
+    if (!validation.success) {
+        console.error("Valideringsfejl på onboarding-kursus:", validation.error.format());
+        return res.status(400).json({
+            success: false,
+            message: "Formatet på dine slides er forkert. Hver slide skal have 'type' (pdf/youtube) og en gyldig 'src' URL.",
+            errors: validation.error.errors
+        });
+    }
+
+    const finalSlides = incomingSlides.map(slide => {
+        return {
+            ...slide,
+            complete: false
+        }
+    })
+
+    const course = {
+        courseId: userId,
+        onboardingSlides: finalSlides
+    }
+
+    await addCourse(course);
+
+    next();
+}
+
 // Til at sende invitation til onboarding
 /* til prototype uden email integration
 export async function sendOnboardingInvitation(req, res, next) {
@@ -160,21 +205,21 @@ export async function sendOnboardingInvitation(req, res, next) {
 
 //med Resend integration for at sende emailen med invitationen
 export async function sendOnboardingInvitation(req, res, next) {
-  try {
-    const { userId } = req.params;
-    const { user, registrationLink } = await createRegistrationInvitationForUser(userId);
-    await sendRegistrationInvitationEmail({
-      to: user.email,
-      name: user.name,
-      registrationLink,
-    });
+    try {
+        const { userId } = req.params;
+        const { user, registrationLink } = await createRegistrationInvitationForUser(userId);
+        await sendRegistrationInvitationEmail({
+            to: user.email,
+            name: user.name,
+            registrationLink,
+        });
 
-    res.status(200).json({
-      message: "Onboarding invitation sent.",
-      user,
-    });
-  } catch (error) {
-    next(error);
-  }
+        res.status(200).json({
+            message: "Onboarding invitation sent.",
+            user,
+        });
+    } catch (error) {
+        next(error);
+    }
 }
 

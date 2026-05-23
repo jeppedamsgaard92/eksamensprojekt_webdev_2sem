@@ -2,7 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { getAllPdfFiles, uploadPdfFiles, sendOnboardingInvitation, uploadYoutubeLinks, getSavedYoutubeLinks } from '../controllers/onboarding.js';
+import { getAllPdfFiles, uploadPdfFiles, sendOnboardingInvitation, uploadYoutubeLinks, getSavedYoutubeLinks, createOnboardingCourse } from '../controllers/onboarding.js';
 import { requireAuth } from '../middleware/requireAuth.js';
 import { requirePermission } from '../middleware/requirePermission.js';
 import { requireCsrfToken } from '../middleware/requireCsrfToken.js';
@@ -31,12 +31,12 @@ router.post('/pdf-slides', /* LoggetInd, requireAdmin */ upload.array('files'), 
 
 router.get('/pdf-slides', /* LoggetInd, requireAdmin */ getAllPdfFiles);
 
-router.post('/youtube-links', /* requireAuth, requirePermission("upload-youtube-links-lol") */ uploadYoutubeLinks);
+router.post('/youtube-links', /* requireAuth, requirePermission("upload-youtube-links") */ uploadYoutubeLinks);
 
-router.get('/youtube-links', /* requireAuth, requirePermission("upload-youtube-links-lol") */ getSavedYoutubeLinks);
+router.get('/youtube-links', /* requireAuth, requirePermission("get-youtube-links") */ getSavedYoutubeLinks);
 
 //til at sende invitation til onboarding
-router.post("/:userId/onboarding", requireAuth, requirePermission("account:send-onboarding-invitation"), requireCsrfToken, sendOnboardingInvitation);
+router.post("/:userId/onboarding", /* requireAuth, requirePermission("account:send-onboarding-invitation"), requireCsrfToken, */ createOnboardingCourse, sendOnboardingInvitation);
 
 export default router;
 
