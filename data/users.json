@@ -182,11 +182,11 @@
     "name": "Jeppe",
     "role": "client",
     "email": "jeppedamsgaard92@gmail.com",
-    "username": null,
-    "passwordHash": null,
-    "registrationCompleted": false,
-    "registrationTokenHash": "9d9aacc7853562d3211316c64f48068cedbf8653f80e75d9215ac92a3a83571a",
-    "registrationTokenExpiresAt": "2026-05-25T13:56:45.918Z",
-    "registrationTokenUsedAt": null
+    "username": "jeppe",
+    "passwordHash": "$argon2id$v=19$m=65536,t=3,p=4$aufikdhvRZChFT+IKvExLA$7VVi4LW0+xxnnAPDWWwlRkiwOYQPkas1KYMLzD1uK78",
+    "registrationCompleted": true,
+    "registrationTokenHash": null,
+    "registrationTokenExpiresAt": null,
+    "registrationTokenUsedAt": "2026-05-23T14:27:17.898Z"
   }
 ]
