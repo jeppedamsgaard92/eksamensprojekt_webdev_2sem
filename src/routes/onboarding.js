@@ -36,8 +36,11 @@ router.post('/youtube-links', /* requireAuth, requirePermission("upload-youtube-
 
 router.get('/youtube-links', /* requireAuth, requirePermission("get-youtube-links") */ getSavedYoutubeLinks);
 
-//til at sende invitation til onboarding
-router.post("/:userId/onboarding", /* requireAuth, requirePermission("account:send-onboarding-invitation"), requireCsrfToken, */ createOnboardingCourse, sendOnboardingInvitation);
+// Til at poste onboarding til specifik bruger
+router.post("/:userId/onboarding", requireAuth, requirePermission("account:send-onboarding-and-invitation"), requireCsrfToken, createOnboardingCourse);
+
+//til at sende invitation til at registere sig
+router.post('/send-register-invitation/:userId', requireAuth, requirePermission("account:send-onboarding-and-invitation"), requireCsrfToken, sendOnboardingInvitation)
 
 //til at få sin tilknyttede onboarding vist
 router.get("/", requireAuth, getLinkedOnboardingCourse);

@@ -8,6 +8,7 @@ import crypto from 'crypto';
 import { sendRegistrationInvitationEmail } from "../services/email.js";
 import { findUserById } from "../dataUtils/users.js";
 import { onboardingCourseSchema } from "../schemas/onboarding.js";
+import { success } from "zod";
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -184,7 +185,10 @@ export async function createOnboardingCourse(req, res, next) {
 
     await addCourse(course);
 
-    next();
+    res.status(200).json({
+        success: true,
+        message: 'Kursus er blevet tilføjet til brugeren.'
+    })
 }
 
 // Til at sende invitation til onboarding
@@ -208,6 +212,15 @@ export async function sendOnboardingInvitation(req, res, next) {
 export async function sendOnboardingInvitation(req, res, next) {
     try {
         const { userId } = req.params;
+
+        const userHasOnboardingCourse = findCourseById(userId);
+        if (!userHasOnboardingCourse) {
+            res.status(500).JSON({
+                success: false,
+                message: 'Brugeren har ikke et onboarding kursus endnu.'
+            })
+        }
+
         const { user, registrationLink } = await createRegistrationInvitationForUser(userId);
         await sendRegistrationInvitationEmail({
             to: user.email,
@@ -226,20 +239,20 @@ export async function sendOnboardingInvitation(req, res, next) {
 
 
 export async function getLinkedOnboardingCourse(req, res, next) {
-  try {
-    const userId = req.session.user.id;
+    try {
+        const userId = req.session.user.id;
 
-    const course = await findCourseById(userId);
+        const course = await findCourseById(userId);
 
-    if (!course) {
-      return res.status(404).json({
-        message: "No onboarding course found for this user.",
-      });
+        if (!course) {
+            return res.status(404).json({
+                message: "No onboarding course found for this user.",
+            });
+        }
+
+        res.status(200).json(course.onboardingSlides);
+    } catch (error) {
+        next(error);
     }
-
-    res.status(200).json(course.onboardingSlides);
-  } catch (error) {
-    next(error);
-  }
 }
 
