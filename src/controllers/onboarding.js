@@ -3,11 +3,12 @@ import path from "path";
 import { fileURLToPath } from "url";
 import multer from "multer";
 import { createRegistrationInvitationForUser } from "../services/invitations.js";
-import { addCourse, getAllSavedYoutubeLinks } from "../dataUtils/onboarding.js";
+import { addCourse, getAllSavedYoutubeLinks, findCourseById } from "../dataUtils/onboarding.js";
 import crypto from 'crypto';
 import { sendRegistrationInvitationEmail } from "../services/email.js";
 import { findUserById } from "../dataUtils/users.js";
 import { onboardingCourseSchema } from "../schemas/onboarding.js";
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -221,5 +222,24 @@ export async function sendOnboardingInvitation(req, res, next) {
     } catch (error) {
         next(error);
     }
+}
+
+
+export async function getLinkedOnboardingCourse(req, res, next) {
+  try {
+    const userId = req.session.user.id;
+
+    const course = await findCourseById(userId);
+
+    if (!course) {
+      return res.status(404).json({
+        message: "No onboarding course found for this user.",
+      });
+    }
+
+    res.status(200).json(course.onboardingSlides);
+  } catch (error) {
+    next(error);
+  }
 }
 

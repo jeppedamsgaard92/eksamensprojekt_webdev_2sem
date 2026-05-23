@@ -6,6 +6,7 @@ import { getAllPdfFiles, uploadPdfFiles, sendOnboardingInvitation, uploadYoutube
 import { requireAuth } from '../middleware/requireAuth.js';
 import { requirePermission } from '../middleware/requirePermission.js';
 import { requireCsrfToken } from '../middleware/requireCsrfToken.js';
+import { getLinkedOnboardingCourse } from '../controllers/onboarding.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -37,6 +38,10 @@ router.get('/youtube-links', /* requireAuth, requirePermission("get-youtube-link
 
 //til at sende invitation til onboarding
 router.post("/:userId/onboarding", /* requireAuth, requirePermission("account:send-onboarding-invitation"), requireCsrfToken, */ createOnboardingCourse, sendOnboardingInvitation);
+
+//til at få sin tilknyttede onboarding vist
+router.get("/", requireAuth, getLinkedOnboardingCourse);
+
 
 export default router;
 
