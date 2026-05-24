@@ -44,34 +44,6 @@
         ]
     },
     {
-        "surveyId": "dummy-survey-001",
-        "hasRegisteredClient": false,
-        "survey": [
-            {
-                "question": "spørgsmål 1",
-                "answer": "Svar 1"
-            }
-        ]
-    },
-    {
-        "surveyId": "f4ce2da9-25b1-435e-8e7c-f46cd431ae95",
-        "hasRegisteredClient": true,
-        "survey": [
-            {
-                "question": "NYspg1",
-                "answer": "hej"
-            },
-            {
-                "question": "spg2",
-                "answer": "ho"
-            },
-            {
-                "question": "spg3",
-                "answer": "hey"
-            }
-        ]
-    },
-    {
         "surveyId": "dba587ae-e805-4e58-8fde-08a9c54dc1df",
         "hasRegisteredClient": false,
         "survey": [
@@ -108,24 +80,6 @@
             {
                 "question": "spg3",
                 "answer": "bla"
-            }
-        ]
-    },
-    {
-        "surveyId": "7127ff9f-f8c3-4679-9db6-98807b410505",
-        "hasRegisteredClient": true,
-        "survey": [
-            {
-                "question": "NYspg1",
-                "answer": "123"
-            },
-            {
-                "question": "spg2",
-                "answer": "123"
-            },
-            {
-                "question": "spg3",
-                "answer": "123"
             }
         ]
     },
@@ -175,6 +129,28 @@
     },
     {
         "surveyId": "bac7b87d-662c-4014-a038-3b1ac7c69a99",
+        "hasRegisteredClient": false,
+        "survey": [
+            {
+                "question": "spøgsmål 1",
+                "answer": "Svar 1"
+            },
+            {
+                "question": "spøgsmål 2",
+                "answer": "Svar 2"
+            },
+            {
+                "question": "spøgsmål 3",
+                "answer": "Svar 3"
+            },
+            {
+                "question": "spøgsmål 4",
+                "answer": "Svar 4"
+            }
+        ]
+    },
+    {
+        "surveyId": "03f66f3a-b334-4438-b51e-1f6702e4c052",
         "hasRegisteredClient": false,
         "survey": [
             {

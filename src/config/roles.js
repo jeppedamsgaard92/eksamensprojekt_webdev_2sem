@@ -9,6 +9,6 @@ export const roles = {
   },
 
   client: {
-    permissions: [],
+    permissions: ['do-client-stuff'],
   },
 };

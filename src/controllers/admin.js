@@ -14,34 +14,39 @@ export async function createNewClientAccount(req, res, next) {
     const { name, email } = req.validatedData;
     const { id } = req.params;
 
-    // Tjekker at survey-id'et faktisk findes.
-    const survey = await findAnsweredSurveyById(id);
+    if (id) {
+      // Tjekker at survey-id'et faktisk findes.
+      const survey = await findAnsweredSurveyById(id);
 
-    if (!survey) {
-      return res.status(400).json({
-        message: "Invalid survey id.",
-      });
-    }
+      if (!survey) {
+        return res.status(400).json({
+          message: "Invalid survey id. Der findes ikke en survey med dette id.",
+        });
+      }
 
-    // Samme survey må kun bruges én gang.
-    if (survey.hasRegisteredClient) {
-      return res.status(409).json({
-        message: "A client has already been registered from this survey.",
-      });
+      // Samme survey må kun bruges én gang.
+      if (survey.hasRegisteredClient) {
+        return res.status(409).json({
+          message: "A client has already been registered from this survey.",
+        });
+      }
     }
 
     // Client får samme id som surveyen.
     const user = await createPendingUserAccount({
-      id,
+      id: id ?? crypto.randomUUID(),
       name,
       email,
       role: "client",
     });
 
-    // Survey markeres som brugt.
-    await updateAnsweredSurveyById(id, {
-      hasRegisteredClient: true,
-    });
+    // Markerer survey'en som brugt hvis der kom et survey-id med i params
+    if (id) {
+      // Survey markeres som brugt.
+      await updateAnsweredSurveyById(id, {
+        hasRegisteredClient: true,
+      });
+    }
 
     res.status(201).json({
       message: "Client account created.",

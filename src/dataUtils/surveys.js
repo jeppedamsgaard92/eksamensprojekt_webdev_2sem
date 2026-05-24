@@ -93,3 +93,23 @@ export async function updateAnsweredSurveyById(surveyId, updates) {
 
   return updatedSurvey;
 }
+
+export async function deleteSurveyById(id) {
+  const allSurveys = await getAllAnsweredSurveys();
+
+  let wasDeleted = false;
+
+  for (let i = 0; i < allSurveys.length; i++) {
+    if (allSurveys[i].surveyId === id) {
+      allSurveys.splice(i, 1);
+      wasDeleted = true;
+      break;
+    }
+  }
+
+  if (wasDeleted) {
+    await saveAllAnsweredSurveys(allSurveys);
+  }
+
+  return wasDeleted;
+}

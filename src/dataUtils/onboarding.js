@@ -26,7 +26,7 @@ export async function getAllOnboardingCourses() {
 }
 
 export async function saveAllOnboardingCourses(allCourses) {
-    fs.writeFile(onboardingCoursesFile, JSON.stringify(allCourses, null, 4), 'utf-8');
+    await fs.writeFile(onboardingCoursesFile, JSON.stringify(allCourses, null, 4), 'utf-8');
 }
 
 export async function addCourse(course) {
@@ -36,14 +36,20 @@ export async function addCourse(course) {
     // Hvis den ikke finder noget, returnerer .findIndex() altid -1
     const courseIndex = allCourses.findIndex(c => c.courseId === course.courseId);
 
+    let status;
+
     // Hvis kurset findes i forvejen (indeks er 0 eller højere)
     if (courseIndex !== -1) {
         allCourses[courseIndex] = course;
+        status = 'Det eksisterende kursus blev opdateret.'
     } else {
         allCourses.push(course);
+        status = 'Det nye kursus blev oprettet.'
     }
 
     await saveAllOnboardingCourses(allCourses);
+
+    return status;
 }
 
 export async function findCourseById(id) {
@@ -52,4 +58,24 @@ export async function findCourseById(id) {
     const thisCourse = allCourses.find(course => course.courseId === id);
 
     return thisCourse ?? null;
+}
+
+export async function deleteCourseById(id) {
+    const allCourses = await getAllOnboardingCourses();
+
+    let wasDeleted = false;
+
+    for (let i = 0; i < allCourses.length; i++) {
+        if (allCourses[i].courseId === id) {
+            allCourses.splice(i, 1);
+            wasDeleted = true;
+            break;
+        }
+    }
+
+    if (wasDeleted) {
+        await saveAllOnboardingCourses(allCourses);
+    }
+
+    return wasDeleted;
 }

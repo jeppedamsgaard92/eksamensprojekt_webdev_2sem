@@ -7,17 +7,12 @@ import { requirePermission } from '../middleware/requirePermission.js';
 
 const router = express.Router();
 
-router.post('/new-survey', /* erLoggetInd, erAdmin */ uploadSurveyFile);
+router.post('/new-survey', requireAuth, requirePermission('do-admin-stuff'), uploadSurveyFile);
 
 router.get('/survey-questions', getSurveyQuestions);
 
 router.post('/survey-answers', uploadAnsweredSurvey);
 
-router.get(
-  "/answered-surveys",
-  /*requireAuth,
-  requirePermission("create:client-account"),*/
-  getUnlinkedAnsweredSurveys
-);
+router.get("/answered-surveys", requireAuth, requirePermission('do-admin-stuff'), getUnlinkedAnsweredSurveys);
 
 export default router;

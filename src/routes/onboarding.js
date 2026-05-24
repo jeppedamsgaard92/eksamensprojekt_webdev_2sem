@@ -2,7 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { getAllPdfFiles, uploadPdfFiles, sendOnboardingInvitation, uploadYoutubeLinks, getSavedYoutubeLinks, createOnboardingCourse } from '../controllers/onboarding.js';
+import { getAllPdfFiles, uploadPdfFiles, sendOnboardingInvitation, uploadYoutubeLinks, getSavedYoutubeLinks, createOnboardingCourse, updateOnboardingProgress, deleteOnboardingCourse } from '../controllers/onboarding.js';
 import { requireAuth } from '../middleware/requireAuth.js';
 import { requirePermission } from '../middleware/requirePermission.js';
 import { requireCsrfToken } from '../middleware/requireCsrfToken.js';
@@ -28,13 +28,13 @@ const upload = multer({ storage: storage });
 const router = express.Router();
 
 // ROUTES
-router.post('/pdf-slides', /* LoggetInd, requireAdmin */ upload.array('files'), uploadPdfFiles);
+router.post('/pdf-slides', requireAuth, requirePermission('do-admin-stuff'), requireCsrfToken, upload.array('files'), uploadPdfFiles);
 
-router.get('/pdf-slides', /* LoggetInd, requireAdmin */ getAllPdfFiles);
+router.get('/pdf-slides', requireAuth, requirePermission('do-admin-stuff'), getAllPdfFiles);
 
-router.post('/youtube-links', /* requireAuth, requirePermission("upload-youtube-links") */ uploadYoutubeLinks);
+router.post('/youtube-links', requireAuth, requirePermission('do-admin-stuff'), requireCsrfToken, uploadYoutubeLinks);
 
-router.get('/youtube-links', /* requireAuth, requirePermission("get-youtube-links") */ getSavedYoutubeLinks);
+router.get('/youtube-links', requireAuth, requirePermission('do-admin-stuff'), getSavedYoutubeLinks);
 
 // Til at poste onboarding til specifik bruger
 router.post("/:userId/onboarding", requireAuth, requirePermission("account:send-onboarding-and-invitation"), requireCsrfToken, createOnboardingCourse);
@@ -45,6 +45,11 @@ router.post('/send-register-invitation/:userId', requireAuth, requirePermission(
 //til at få sin tilknyttede onboarding vist
 router.get("/", requireAuth, getLinkedOnboardingCourse);
 
+// Til at poste sin onboardig progress som klient
+router.post('/onboarding-progress', requireAuth, requirePermission('do-client-stuff'), requireCsrfToken, updateOnboardingProgress);
+
+// Til at slette et onboarding kursus for en specifik klient
+router.delete('/:clientId/onboarding', requireAuth, requirePermission('do-admin-stuff'), requireCsrfToken, deleteOnboardingCourse)
 
 export default router;
 

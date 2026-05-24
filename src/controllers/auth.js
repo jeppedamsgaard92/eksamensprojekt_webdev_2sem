@@ -1,3 +1,4 @@
+import { findCourseById } from "../dataUtils/onboarding.js";
 import { loginUser } from "../services/auth.js";
 
 export async function login(req, res, next) {
@@ -15,30 +16,43 @@ export async function login(req, res, next) {
     const { user } = result;
 
     // Regenererer session-ID ved login for at modvirke session fixation.
-    req.session.regenerate((error) => {
-    if (error) {
+    req.session.regenerate(async (error) => {
+      if (error) {
         return next(error);
-    }
+      }
 
-    req.session.user = {
+      req.session.user = {
         id: user.id,
         username: user.username,
         role: user.role,
-    };
+      };
 
-    res.status(200).json({
+      const onboardingCourse = await findCourseById(req.session.user.id);
+
+      res.status(200).json({
+        success: true,
         message: "Login successful.",
-        user: req.session.user,
-    });
+        id: req.session.user.id,
+        username: req.session.user.username,
+        role: req.session.user.role,
+        onboardingCourse: req.session.user.role === 'admin' ? undefined : onboardingCourse.onboardingSlides ?? null
+        //user: req.session.user,
+      });
     });
   } catch (error) {
     next(error);
   }
 }
 
-export function getCurrentUser(req, res) {
+export async function getCurrentUser(req, res) {
+  const user = req.session.user;
+  const onboardingCourse = await findCourseById(user.id);
   res.status(200).json({
-    user: req.session.user,
+    success: true,
+    id: user.id,
+    role: user.role,
+    username: user.username,
+    onboardingCourse: user.role === 'admin' ? undefined : onboardingCourse.onboardingSlides ?? null
   });
 }
 
@@ -51,6 +65,7 @@ export function logout(req, res, next) {
     res.clearCookie("connect.sid");
 
     res.status(200).json({
+      success: true,
       message: "Logged out.",
     });
   });

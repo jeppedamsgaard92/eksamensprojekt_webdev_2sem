@@ -3,11 +3,11 @@ import path from "path";
 import { fileURLToPath } from "url";
 import multer from "multer";
 import { createRegistrationInvitationForUser } from "../services/invitations.js";
-import { addCourse, getAllSavedYoutubeLinks, findCourseById } from "../dataUtils/onboarding.js";
+import { addCourse, getAllSavedYoutubeLinks, findCourseById, deleteCourseById } from "../dataUtils/onboarding.js";
 import crypto from 'crypto';
 import { sendRegistrationInvitationEmail } from "../services/email.js";
 import { findUserById } from "../dataUtils/users.js";
-import { onboardingCourseSchema } from "../schemas/onboarding.js";
+import { onboardingCourseSchema, onboardingCourseSchemaWithProgress } from "../schemas/onboarding.js";
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -182,11 +182,11 @@ export async function createOnboardingCourse(req, res, next) {
         onboardingSlides: finalSlides
     }
 
-    await addCourse(course);
+    const status = await addCourse(course);
 
     res.status(200).json({
         success: true,
-        message: 'Kursus er blevet tilføjet til brugeren.'
+        message: status
     })
 }
 
@@ -253,6 +253,108 @@ export async function getLinkedOnboardingCourse(req, res, next) {
         res.status(200).json(course.onboardingSlides);
     } catch (error) {
         next(error);
+    }
+}
+
+export async function updateOnboardingProgress(req, res, next) {
+    try {
+        // Tjek om formatet på indkomne slides
+        const incomingSlides = req.body;
+
+        const validation = onboardingCourseSchemaWithProgress.safeParse(incomingSlides);
+
+        if (!validation.success) {
+            console.error("Valideringsfejl på onboarding-kursus:", validation.error.format());
+            return res.status(400).json({
+                success: false,
+                message: "Formatet på dine slides er forkert. Hver slide skal have 'type' (pdf/youtube), en gyldig 'src' URL og 'complete' (true/false)",
+                errors: validation.error.errors
+            });
+        }
+
+        const validIncomingSlides = validation.data;
+
+        // Finder det originale kursus (Finder gemt kursus på brugeren, der er logget ind)
+        const id = req.session.user.id;
+        const existingCourse = await findCourseById(id);
+
+        if (!existingCourse) {
+            return res.status(404).json({
+                success: false,
+                message: "Der blev ikke fundet noget onboarding-kursus for din bruger."
+            });
+        }
+
+        // SIKKERHEDSTJEK: Er der blevet manipuleret med antallet af slides?
+        if (validIncomingSlides.length !== existingCourse.onboardingSlides.length) {
+            return res.status(400).json({
+                success: false,
+                message: "Sikkerhedsfejl: Antallet af slides matcher ikke det originale kursus!"
+            });
+        }
+
+        // SIKKERHEDSTJEK: Løb igennem og sammenlign type og src for hver evig eneste slide
+        for (let i = 0; i < existingCourse.onboardingSlides.length; i++) {
+            const originalSlide = existingCourse.onboardingSlides[i];
+            const incomingSlide = validIncomingSlides[i];
+
+            // Hvis type eller src er blevet ændret, så stopper vi med det samme
+            if (originalSlide.type !== incomingSlide.type || originalSlide.src !== incomingSlide.src) {
+                return res.status(403).json({
+                    success: false,
+                    message: "Sikkerhedsfejl: Du må ikke ændre på slides' indhold (type eller URL), kun fremskridt!"
+                });
+            }
+        }
+
+        // 5. Hvis koden overlever løkken, er alt data reelt! Vi opdaterer kurset
+        existingCourse.onboardingSlides = validIncomingSlides;
+
+        // Gemmer det opdaterede kursus i JSON-filen
+        await addCourse(existingCourse);
+
+        return res.status(200).json({
+            success: true,
+            message: "Onboarding progress blev gemt",
+            onboardingSlides: existingCourse.onboardingSlides
+        });
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+}
+
+export async function deleteOnboardingCourse(req, res) {
+    try {
+        const { clientId } = req.params;
+
+        // Tjek om bruger findes
+        const userExists = findUserById(clientId);
+        if (!userExists) {
+            return res.status(404).json({
+                success: false,
+                message: "Kunne ikke slette kursus: Klienten findes ikke i systemet."
+            });
+        }
+
+        // Slet kursus
+        const courseWasDeleted = await deleteCourseById(clientId);
+
+        if (courseWasDeleted) {
+            return res.status(200).json({
+                success: true,
+                message: "Onboarding kursus blev slettet"
+            });
+        } else {
+            // Hvis brugeren eksisterer, men deleteCourseById returner false
+            return res.status(400).json({
+                success: false,
+                message: "Klienten havde ikke noget aktivt onboarding-kursus at slette."
+            });
+        }
+
+    } catch (err) {
+        console.error(err);
     }
 }
 
