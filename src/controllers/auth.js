@@ -44,16 +44,26 @@ export async function login(req, res, next) {
   }
 }
 
-export async function getCurrentUser(req, res) {
-  const user = req.session.user;
-  const onboardingCourse = await findCourseById(user.id);
-  res.status(200).json({
-    success: true,
-    id: user.id,
-    role: user.role,
-    username: user.username,
-    onboardingCourse: user.role === 'admin' ? undefined : onboardingCourse ? onboardingCourse.onboardingSlides : null
-  });
+export async function getCurrentUser(req, res, next) {
+  try {
+    const user = req.session.user;
+    const onboardingCourse = await findCourseById(user.id);
+
+    res.status(200).json({
+      success: true,
+      id: user.id,
+      role: user.role,
+      username: user.username,
+      onboardingCourse:
+        user.role === "admin"
+          ? undefined
+          : onboardingCourse
+            ? onboardingCourse.onboardingSlides
+            : null,
+    });
+  } catch (error) {
+    next(error);
+  }
 }
 
 export function logout(req, res, next) {

@@ -223,7 +223,7 @@ export async function sendOnboardingInvitation(req, res, next) {
 
         const userHasOnboardingCourse = await findCourseById(userId);
         if (!userHasOnboardingCourse) {
-            res.status(400).JSON({
+            return res.status(400).json({
                 success: false,
                 message: 'Brugeren har ikke et onboarding kursus endnu.'
             })
@@ -338,7 +338,7 @@ export async function deleteOnboardingCourse(req, res) {
         const { clientId } = req.params;
 
         // Tjek om bruger findes
-        const userExists = findUserById(clientId);
+        const userExists = await findUserById(clientId);
         if (!userExists) {
             return res.status(404).json({
                 success: false,
