@@ -1,25 +1,25 @@
 import { z } from "zod";
 
-//Validerer de loginoplysninger, brugeren sender fra registreringsformularen.
 export const completeRegistrationSchema = z
   .object({
-    //Brugernavn trimmes og holdes til et kontrolleret tegnsæt.
     username: z
       .string()
       .trim()
       .min(3, "Username must be at least 3 characters.")
       .max(50, "Username must be 50 characters or fewer."),
 
-    //Password trimmes ikke, fordi mellemrum kan være en bevidst del af passwordet.
     password: z
       .string()
-      .min(8, "Password must be at least 8 characters.")
-      .max(128, "Password must be 128 characters or fewer."),
+      .min(1, "Password is required.") //slet det her min-krav og ind-kommenter nedenstående
+      /*.min(12, "Password must be at least 12 characters.")
+      .max(128, "Password must be 128 characters or fewer.")
+      .regex(/[a-z]/, "Password must contain at least one lowercase letter.")
+      .regex(/[A-Z]/, "Password must contain at least one uppercase letter.")
+      .regex(/[0-9]/, "Password must contain at least one number.")
+      .regex(/[^a-zA-Z0-9]/, "Password must contain at least one special character.")*/,
 
     confirmPassword: z.string(),
   })
-
-  //Tjekker, at brugeren har skrevet det samme password to gange.
   .refine(
     ({ password, confirmPassword }) => password === confirmPassword,
     {
