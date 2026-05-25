@@ -12,6 +12,6 @@ router.post("/login", loginLimiter, requireCsrfToken, validateLogin, login);
 
 router.get("/user", requireAuth, getCurrentUser);
 
-router.post("/logout", requireCsrfToken, requireAuth, logout);
+router.post("/logout", requireAuth, requireCsrfToken, logout);
 
 export default router;
