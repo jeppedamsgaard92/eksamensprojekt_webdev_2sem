@@ -22,7 +22,7 @@ const pdfSlidesFolder = path.join(__dirname, "../public/pdfSlidesDB/");
 const youtubeLinksFile = path.join(__dirname, "../../data/onboarding/youtubeLinks.json");
 
 // Til at uploade pdf-filer
-export function uploadPdfFiles(req, res) {
+export async function uploadPdfFiles(req, res) {
     try {
         if (!req.files || req.files.length === 0) {
             return res.status(400).json({ success: false, message: 'Ingen filer modtaget.' });
