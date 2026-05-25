@@ -23,3 +23,14 @@ export const invitationLimiter = rateLimit({
       "Too many invitations sent. Please try again later.",
   },
 });
+
+// Begrænser hvor mange surveys en bruger kan indsende.
+export const surveyAnswerLimiter = rateLimit({
+  windowMs: 1000 * 60 * 15,
+  max: 10,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    message: "Too many survey submissions. Please try again later.",
+  },
+});
