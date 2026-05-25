@@ -2,7 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { getAllPdfFiles, uploadPdfFiles, sendOnboardingInvitation, uploadYoutubeLinks, getSavedYoutubeLinks, createOnboardingCourse, updateOnboardingProgress, deleteOnboardingCourse, deleteYoutubeLink } from '../controllers/onboarding.js';
+import { getAllPdfFiles, uploadPdfFiles, sendOnboardingInvitation, uploadYoutubeLinks, getSavedYoutubeLinks, createOnboardingCourse, updateOnboardingProgress, deleteOnboardingCourse, deleteYoutubeLink, deletePdfFile } from '../controllers/onboarding.js';
 import { requireAuth } from '../middleware/requireAuth.js';
 import { requirePermission } from '../middleware/requirePermission.js';
 import { requireCsrfToken } from '../middleware/requireCsrfToken.js';
@@ -44,11 +44,13 @@ router.post('/pdf-slides', requireAuth, requirePermission('do-admin-stuff'), req
 
 router.get('/pdf-slides', requireAuth, requirePermission('do-admin-stuff'), getAllPdfFiles);
 
+router.delete('/pdf-file/:filename', requireAuth, requirePermission('do-admin-stuff'), requireCsrfToken, deletePdfFile);
+
 router.post('/youtube-links', requireAuth, requirePermission('do-admin-stuff'), requireCsrfToken, uploadYoutubeLinks);
 
 router.get('/youtube-links', requireAuth, requirePermission('do-admin-stuff'), getSavedYoutubeLinks);
 
-router.delete('/youtube-link/:linkId', requireAuth, requirePermission('do-admin-stuff'), requireCsrfToken, deleteYoutubeLink)
+router.delete('/youtube-link/:linkId', requireAuth, requirePermission('do-admin-stuff'), requireCsrfToken, deleteYoutubeLink);
 
 // Til at poste onboarding til specifik bruger
 router.post("/:userId/onboarding", requireAuth, requirePermission("account:send-onboarding-and-invitation"), requireCsrfToken, createOnboardingCourse);

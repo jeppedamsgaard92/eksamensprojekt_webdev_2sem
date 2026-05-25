@@ -42,6 +42,11 @@ export async function deleteYoutubeLinkById(id) {
     return wasDeleted ? allLinks : null;
 }
 
+// Til at slette pdf-fil
+export async function deletePdfByPath(fullPath) {
+    await fs.unlink(fullPath);
+}
+
 export async function getAllOnboardingCourses() {
     const file = await fs.readFile(onboardingCoursesFile, 'utf-8');
 

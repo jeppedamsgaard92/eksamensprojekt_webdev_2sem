@@ -3,6 +3,16 @@
         "courseId": "a87e8fdc-4723-42ac-a568-bddd0cfe78e4",
         "onboardingSlides": [
             {
+                "type": "youtube",
+                "src": "https://www.youtube.com/watch?v=w9HOvlhIlBg",
+                "complete": false
+            }
+        ]
+    },
+    {
+        "courseId": "107442bb-a6ba-4329-9889-346fc280efb9",
+        "onboardingSlides": [
+            {
                 "type": "pdf",
                 "src": "http://localhost:2000/pdfSlidesDB/120_904682 Infinity Classic Panel.pdf",
                 "complete": false
@@ -15,7 +25,7 @@
         ]
     },
     {
-        "courseId": "107442bb-a6ba-4329-9889-346fc280efb9",
+        "courseId": "58de0990-54b0-4dbe-ba03-ae7bfa4c5780",
         "onboardingSlides": [
             {
                 "type": "pdf",

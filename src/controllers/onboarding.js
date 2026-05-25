@@ -3,7 +3,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import multer from "multer";
 import { createRegistrationInvitationForUser } from "../services/invitations.js";
-import { addCourse, getAllSavedYoutubeLinks, findCourseById, deleteCourseById, deleteYoutubeLinkById, saveAllYoutubeLinks } from "../dataUtils/onboarding.js";
+import { addCourse, getAllSavedYoutubeLinks, findCourseById, deleteCourseById, deleteYoutubeLinkById, saveAllYoutubeLinks, deletePdfByPath, getAllOnboardingCourses, saveAllOnboardingCourses } from "../dataUtils/onboarding.js";
 import crypto from 'crypto';
 import { sendRegistrationInvitationEmail } from "../services/email.js";
 import { findUserById } from "../dataUtils/users.js";
@@ -72,6 +72,52 @@ export async function getAllPdfFiles(req, res) {
         return res.status(200).json(fileList);
     } catch (error) {
         return res.status(500).json({ success: false, message: "Kunne ikke hente filer." });
+    }
+}
+
+// Til at slette en pdf-fil
+export async function deletePdfFile(req, res, next) {
+    try {
+        const { filename } = req.params;
+
+        const decodedFilename = decodeURIComponent(filename);
+
+        const filePath = path.join(pdfSlidesFolder, decodedFilename);
+
+        await deletePdfByPath(filePath);
+
+        // Hent alle kurser
+        const allCourses = await getAllOnboardingCourses();
+
+        // Opdater alle kurser ved at filtrere den slettede PDF ud af deres onboardingSlides-arrays
+        const updatedCourses = allCourses.map(course => {
+            course.onboardingSlides = course.onboardingSlides.filter(slide => {
+                // Beholder kun de slides, der IKKE linker til den slettede fil
+                return !slide.src.endsWith(decodedFilename);
+            });
+            return course;
+        });
+
+        // Gem de opdaterede kurser tilbage i JSON-filen
+        await saveAllOnboardingCourses(updatedCourses);
+
+        return res.status(200).json({
+            success: true,
+            message: `Filen '${filename}' blev permanent slettet fra serveren og fra alle de onboardingslides den blev benyttet`
+        });
+    } catch (err) {
+        // Hvis filen ikke findes på harddisken (Fejlkode: ENOENT)
+        if (err.code === 'ENOENT') {
+            console.warn("Filen blev ikke fundet på harddisken:", err.path);
+            return res.status(404).json({
+                success: false,
+                message: "Kunne ikke slette: Filen eksisterer ikke på serveren."
+            });
+        }
+
+        // Alle andre uforudsete server/rettigheds-fejl
+        console.error("Fejl under sletning af PDF-fil:", err);
+        next(err);
     }
 }
 

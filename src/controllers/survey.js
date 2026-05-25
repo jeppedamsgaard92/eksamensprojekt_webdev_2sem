@@ -4,6 +4,7 @@ import { fileURLToPath } from "url";
 
 import {
   createAnsweredSurvey,
+  deleteSurveyById,
   getNewAnsweredSurveys,
 } from "../dataUtils/surveys.js";
 
@@ -11,6 +12,7 @@ import {
   answeredSurvey,
   surveyQuestions,
 } from "../schemas/survey.js";
+import { success } from "zod";
 
 // Finder korrekt sti fra denne fil.
 const __filename = fileURLToPath(import.meta.url);
@@ -105,5 +107,28 @@ export async function getUnlinkedAnsweredSurveys(req, res, next) {
     );
   } catch (error) {
     next(error);
+  }
+}
+
+export async function deleteAnsweredSurvey(req, res, next) {
+  const { surveyId } = req.params;
+
+  try {
+    const surveyWasDeleted = await deleteSurveyById(surveyId);
+
+    if (!surveyWasDeleted) {
+      return res.status(404).json({
+        success: false,
+        message: 'Surveybesvarelse blev ikke slettet. Kunne ikke finde survey med dette id'
+      })
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Surveybesvarelse blev slettet'
+    })
+  } catch (err) {
+    console.error(err);
+    next(err);
   }
 }
