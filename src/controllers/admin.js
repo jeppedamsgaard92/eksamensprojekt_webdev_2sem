@@ -58,7 +58,11 @@ export async function createNewClientAccount(req, res, next) {
 
     res.status(201).json({
       message: "Client account created.",
-      user,
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      registrationCompleted: user.registrationCompleted,
     });
   } catch (error) {
     next(error);
@@ -86,7 +90,11 @@ export async function createNewAdminAccount(req, res, next) {
 
     res.status(201).json({
       message: "Admin account created.",
-      user,
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      registrationCompleted: user.registrationCompleted,
     });
   } catch (error) {
     next(error);
