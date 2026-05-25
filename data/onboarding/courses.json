@@ -38,5 +38,20 @@
                 "complete": false
             }
         ]
+    },
+    {
+        "courseId": "a91bc460-b10d-413d-abde-e75f1775bfc4",
+        "onboardingSlides": [
+            {
+                "type": "pdf",
+                "src": "http://localhost:2000/pdfSlidesDB/120_904682 Infinity Classic Panel.pdf",
+                "complete": false
+            },
+            {
+                "type": "youtube",
+                "src": "https://www.youtube.com/watch?v=w9HOvlhIlBg",
+                "complete": false
+            }
+        ]
     }
 ]

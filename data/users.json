@@ -153,5 +153,29 @@
     "registrationTokenHash": null,
     "registrationTokenExpiresAt": null,
     "registrationTokenUsedAt": "2026-05-23T14:27:17.898Z"
+  },
+  {
+    "id": "a91bc460-b10d-413d-abde-e75f1775bfc4",
+    "name": "Anders",
+    "role": "client",
+    "email": "flamingdragon1995@gmail.com",
+    "username": "flotfyr95",
+    "passwordHash": "$argon2id$v=19$m=65536,t=3,p=4$0PO3nygDcpqicAs4aUGIRQ$npLkRG88Ssl84ibE6W3fjG7qowtuWsPSRPKs0phPywA",
+    "registrationCompleted": true,
+    "registrationTokenHash": null,
+    "registrationTokenExpiresAt": null,
+    "registrationTokenUsedAt": "2026-05-25T15:46:26.718Z"
+  },
+  {
+    "id": "9063f86e-da12-4151-a197-faaa79f13804",
+    "name": "Danny Wellbeck",
+    "role": "client",
+    "email": "whatever@gmail.com",
+    "username": null,
+    "passwordHash": null,
+    "registrationCompleted": false,
+    "registrationTokenHash": null,
+    "registrationTokenExpiresAt": null,
+    "registrationTokenUsedAt": null
   }
 ]

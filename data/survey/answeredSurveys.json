@@ -150,23 +150,23 @@
         ]
     },
     {
-        "surveyId": "03f66f3a-b334-4438-b51e-1f6702e4c052",
-        "hasRegisteredClient": false,
+        "surveyId": "a91bc460-b10d-413d-abde-e75f1775bfc4",
+        "hasRegisteredClient": true,
         "survey": [
             {
-                "question": "spøgsmål 1",
+                "question": "Spørgsmål 1",
                 "answer": "Svar 1"
             },
             {
-                "question": "spøgsmål 2",
+                "question": "Spørgsmål 2",
                 "answer": "Svar 2"
             },
             {
-                "question": "spøgsmål 3",
+                "question": "Spørgsmål 3",
                 "answer": "Svar 3"
             },
             {
-                "question": "spøgsmål 4",
+                "question": "Spørgsmål 4",
                 "answer": "Svar 4"
             }
         ]
