@@ -1,6 +1,7 @@
 import { deleteCourseById, findCourseById } from "../dataUtils/onboarding.js";
 import { deleteSurveyById, findAnsweredSurveyById } from "../dataUtils/surveys.js";
 import { deleteUserById, findUserById, getAllUsers } from "../dataUtils/users.js";
+import { auditLog } from "../utils/auditLogger.js";
 
 export async function getAllClients(req, res) {
     try {
@@ -93,6 +94,12 @@ export async function deleteUser(req, res) {
         if (userWasDeleted) {
             const usersSurveyWasDeleted = await deleteSurveyById(userId);
             const courseWasDeleted = await deleteCourseById(userId);
+
+            await auditLog({
+                action: "DELETE_USER",
+                actorUserId: req.session.user.id,
+                targetUserId: userId,
+            });
             return res.status(200).json({
                 success: true,
                 message: `Brugeren blev slettet fra serveren. ${usersSurveyWasDeleted ? 'Brugerens survey blev slettet' : ''}${courseWasDeleted ? 'Brugerens onboarding blev slettet.' : ''}`

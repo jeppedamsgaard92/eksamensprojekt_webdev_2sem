@@ -1,4 +1,5 @@
 import crypto from "crypto";
+import { auditLog } from "../utils/auditLogger.js";
 
 import {
   createPendingUserAccount,
@@ -48,6 +49,13 @@ export async function createNewClientAccount(req, res, next) {
       });
     }
 
+    await auditLog({
+      action: "CREATE_CLIENT_ACCOUNT",
+      actorUserId: req.session.user.id,
+      targetUserId: user.id,
+      targetRole: user.role,
+    });
+
     res.status(201).json({
       message: "Client account created.",
       user,
@@ -67,6 +75,13 @@ export async function createNewAdminAccount(req, res, next) {
       name,
       email,
       role: "admin",
+    });
+
+    await auditLog({
+      action: "CREATE_ADMIN_ACCOUNT",
+      actorUserId: req.session.user.id,
+      targetUserId: user.id,
+      targetRole: user.role,
     });
 
     res.status(201).json({
