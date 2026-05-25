@@ -1,5 +1,9 @@
 import { verifyRegistrationToken, completeUserRegistration, } from "../services/registrations.js";
 import { generateCsrfToken, hashToken, } from "../utils/tokens.js";
+import path from "path";
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 /*
   Hvis tokenen er gyldig:
   - oprettes en ny registrerings-session
@@ -47,27 +51,24 @@ export async function activateRegistration(req, res, next) {
   }
 }
 
+export function showRegistrationPage(req, res) {
+  res.sendFile(path.join(__dirname, "../public/register.html"));
+}
+/* --- IGNORE ---
 //Viser en midlertidig registreringsformular med CSRF-beskyttelse.
 export function showRegistrationPage(req, res) {
-  //Der genereres en ny CSRF-token for denne formularvisning.
-  const csrfToken = generateCsrfToken();
-
-  //Kun hash af CSRF-tokenen gemmes i sessionen.
-  req.session.csrfTokenHash = hashToken(csrfToken);
-
+  const csrfToken = generateCsrfToken();   //Der genereres en ny CSRF-token for denne formularvisning.
+  req.session.csrfTokenHash = hashToken(csrfToken);   //Kun hash af CSRF-tokenen gemmes i sessionen.
   res.status(200).send(`
     <h1>Complete registration</h1>
-
     <form method="POST" action="/register">
       <input
         type="hidden"
         name="_csrf"
         value="${csrfToken}"
       />
-
       <div>
         <label for="username">Username</label>
-
         <input
           id="username"
           name="username"
@@ -75,12 +76,9 @@ export function showRegistrationPage(req, res) {
           required
         />
       </div>
-
       <br />
-
       <div>
         <label for="password">Password</label>
-
         <input
           id="password"
           name="password"
@@ -88,14 +86,11 @@ export function showRegistrationPage(req, res) {
           required
         />
       </div>
-
       <br />
-
       <div>
         <label for="confirmPassword">
           Confirm password
         </label>
-
         <input
           id="confirmPassword"
           name="confirmPassword"
@@ -103,15 +98,13 @@ export function showRegistrationPage(req, res) {
           required
         />
       </div>
-
       <br />
-
       <button type="submit">
         Complete registration
       </button>
     </form>
   `);
-}
+}*/
 
 
 //Gemmer brugerens valgte username og password, hvis registrerings-sessionen stadig er gyldig.
@@ -147,9 +140,10 @@ export async function completeRegistration(req, res, next) {
         return next(error);
       }
 
-      res.status(200).json({
+      /*res.status(200).json({
         message: "Registration completed. You can now log in.",
-      });
+      });*/
+      res.redirect("/registration-success");
     });
   } catch (error) {
     next(error);

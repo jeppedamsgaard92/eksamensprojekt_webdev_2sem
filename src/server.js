@@ -157,23 +157,15 @@ app.use(
       */
       secure: isProduction,
 
-      /*
-        SameSite: "lax" reducerer risikoen for,
-        at session-cookien sendes med cross-site requests.
-        Det er ikke en fuld CSRF-løsning, men et nyttigt ekstra lag.
-      */
-      sameSite: "lax",
-
-      /*
-        Sessionen udløber efter 30 minutter uden hensyn til browserlukning.
-        Det er et fornuftigt udgangspunkt til login-systemet.
-      */
-      maxAge: 1000 * 60 * 30,
+      sameSite: "lax", // SameSite: "lax" reducerer risikoen for, at session-cookien sendes med cross-site requests.
+      maxAge: 1000 * 60 * 30, // sessionen udløber efter 30 minutter
     },
   })
 );
 
 app.use(express.static(path.join(__dirname, "public")));
+
+app.get("/registration-success", (req, res) => { res.sendFile(path.join(__dirname, "public/registration-success.html"))});
 
 /*
   Registreringsflowets routes.
@@ -201,13 +193,7 @@ app.use("/auth", authRoutes);
 app.use('/clients', clientsRoutes)
 
 app.use("/account", accountRoutes);
-/*
-  Midlertidig test-route.
-  Når den virker, ved jeg, at serveren starter korrekt.
-*/
-app.get("/", (req, res) => {
-  res.status(200).send("Serveren kører.");
-});
+
 
 /*
   Hvis brugeren rammer en route, der ikke findes,

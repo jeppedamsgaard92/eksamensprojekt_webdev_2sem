@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete registration</title>
+</head>
+<body>
+  <h1>Complete registration</h1>
+
+  <form method="POST" action="/register">
+    <input type="hidden" id="csrfInput" name="_csrf" />
+
+    <div>
+      <label for="username">Username</label>
+      <input id="username" name="username" type="text" required />
+    </div>
+
+    <br />
+
+    <div>
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" required />
+    </div>
+
+    <br />
+
+    <div>
+      <label for="confirmPassword">Confirm password</label>
+      <input id="confirmPassword" name="confirmPassword" type="password" required />
+    </div>
+
+    <br />
+
+    <button type="submit">Complete registration</button>
+  </form>
+
+  <script src="/register.js"></script>
+</body>
+</html>

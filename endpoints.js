@@ -366,10 +366,10 @@ const endpoints = {
             success: false,
             message: 'fejlbesked'
         }
-    }
+    },
 
     //Til at bruger kan slette sin egen konto. Hvis en klient sletter sin konto, slettes også tilknyttet survey og onboarding data. Hvis en admin sletter sin konto, slettes der ikke noget data da admin ikke har nogen survey eller onboarding data tilknyttet.
-    '.delete("/me")': {
+    '.delete("/account/me")': {
         forklaring: 'Til at slette sin egen konto som bruger',
         hvis_res_ok: {
             success: true,
@@ -378,8 +378,50 @@ const endpoints = {
         hvis_res_IKKE_ok: {
             success: false,
             message: "User was not found.",
+        }   
+    },
+    //til at opdatere sin egen konto som bruger: brugernavn og/eller email. Hvis klient opdaterer sin konto, opdateres også navnet i det tilknyttede survey og onboarding data for at holde det synkroniseret.
+    '.patch("/account/me")': {
+        forklaring: 'Til at opdatere sin egen konto som bruger',
+        body: {
+            username: "currentUsername",
+            password: "CurrentPassword123!",
+            name: "New name // optional",
+            email: "new@email.com // optional"
+        },
+        hvis_res_ok: {
+            success: true,
+            message: "Your account was updated.",
+            user: {
+                id: updatedUser.id,
+                name: updatedUser.name,
+                email: updatedUser.email,
+                username: updatedUser.username,
+                role: updatedUser.role,
+            },
+        },
+        hvis_res_IKKE_ok: {
+            success: false,
+            message: "User was not found.",
         }
-        
+    },
+    //til at opdatere sit eget kodeord. For at gøre det ekstra sikkert, skal brugeren sende sit nuværende brugernavn og kodeord igen i body som en form for verificering før de kan opdatere til et nyt kodeord. Det nye kodeord skal også sendes i body og valideres på samme måde som ved oprettelse af konto for at sikre at det er stærkt nok.
+    '.patch("/account/me/password")': {
+    forklaring: 'Til at ændre sit eget kodeord. Brugeren skal sende sit nuværende brugernavn og kodeord igen som verificering.',
+    body: {
+        username: "currentUsername",
+        password: "CurrentPassword123!",
+        newPassword: "NewPassword123!",
+        confirmNewPassword: "NewPassword123!"
+    },
+    hvis_res_ok: {
+        success: true,
+        message: "Your password was updated.",
+    },
+    hvis_res_IKKE_ok: {
+        success: false,
+        message: "Invalid username or password / invalid password update data.",
+    }
     }
     
 }
