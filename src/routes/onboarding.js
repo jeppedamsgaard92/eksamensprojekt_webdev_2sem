@@ -7,6 +7,7 @@ import { requireAuth } from '../middleware/requireAuth.js';
 import { requirePermission } from '../middleware/requirePermission.js';
 import { requireCsrfToken } from '../middleware/requireCsrfToken.js';
 import { getLinkedOnboardingCourse } from '../controllers/onboarding.js';
+import { invitationLimiter } from "../middleware/rateLimiters.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
