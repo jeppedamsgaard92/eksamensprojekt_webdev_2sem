@@ -9,6 +9,7 @@ import { sendRegistrationInvitationEmail } from "../services/email.js";
 import { findUserById } from "../dataUtils/users.js";
 import { onboardingCourseSchema, onboardingCourseSchemaWithProgress } from "../schemas/onboarding.js";
 import { success } from "zod";
+import { auditLog } from "../utils/auditLogger.js";
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -43,12 +44,17 @@ export function uploadPdfFiles(req, res) {
                 url: `http://localhost:${process.env.PORT ?? '2000'}/pdfSlidesDB/${file.originalname}`
             };
         });
+        await auditLog({
+            action: "UPLOAD_PDF_FILES",
+            actorUserId: req.session.user.id,
+        });
 
         return res.status(201).json({
             success: true,
             message: 'Filer gemt (og eventuelle dubletter er blevet erstattet!)',
             files: gemteFiler
         });
+
     } catch (error) {
         return res.status(500).json({ success: false, message: 'Fejl under upload.' });
     }
@@ -100,6 +106,11 @@ export async function deletePdfFile(req, res, next) {
 
         // Gem de opdaterede kurser tilbage i JSON-filen
         await saveAllOnboardingCourses(updatedCourses);
+
+        await auditLog({
+            action: "DELETE_PDF_FILE",
+            actorUserId: req.session.user.id,
+        });
 
         return res.status(200).json({
             success: true,
@@ -167,12 +178,16 @@ export async function uploadYoutubeLinks(req, res, next) {
 
     try {
         await saveAllYoutubeLinks(existingLinks);
-
+        await auditLog({
+            action: "UPLOAD_YOUTUBE_LINKS",
+            actorUserId: req.session.user.id,
+        });
         return res.status(200).json({
             success: true,
             message: "Youtube links blev uploadet og gemt!",
             allLinks: existingLinks,
         });
+       
     } catch (error) {
         return res.status(500).json({ success: false, message: "Kunne ikke uploade youtube links" });
     }
@@ -210,6 +225,10 @@ export async function deleteYoutubeLink(req, res, next) {
             message: 'youtube link blev slettet',
             allLinks: updatedList
         })
+        await auditLog({
+            action: "DELETE_YOUTUBE_LINKS",
+            actorUserId: req.session.user.id,
+        });
     } catch (err) {
         console.error(err);
         next(err);
@@ -262,6 +281,11 @@ export async function createOnboardingCourse(req, res, next) {
         success: true,
         message: status
     })
+    await auditLog({
+        action: "CREATE_OR_UPDATE_ONBOARDING_COURSE",
+        actorUserId: req.session.user.id,
+        targetUserId: userId,
+    });
 }
 
 // Til at sende invitation til onboarding
@@ -304,8 +328,13 @@ export async function sendOnboardingInvitation(req, res, next) {
         res.status(200).json({
             success: true,
             message: "Onboarding invitation sent.",
-            user,
         });
+        await auditLog({
+            action: "SEND_REGISTRATION_INVITATION",
+            actorUserId: req.session.user.id,
+            targetUserId: userId,
+        });
+       
     } catch (error) {
         next(error);
     }
@@ -415,10 +444,17 @@ export async function deleteOnboardingCourse(req, res) {
         const courseWasDeleted = await deleteCourseById(clientId);
 
         if (courseWasDeleted) {
+            await auditLog({
+                action: "DELETE_ONBOARDING_COURSE",
+                actorUserId: req.session.user.id,
+                targetUserId: clientId,
+            });
+
             return res.status(200).json({
                 success: true,
                 message: "Onboarding kursus blev slettet"
             });
+
         } else {
             // Hvis brugeren eksisterer, men deleteCourseById returner false
             return res.status(400).json({
