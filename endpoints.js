@@ -367,4 +367,20 @@ const endpoints = {
             message: 'fejlbesked'
         }
     }
+
+    //Til at bruger kan slette sin egen konto. Hvis en klient sletter sin konto, slettes også tilknyttet survey og onboarding data. Hvis en admin sletter sin konto, slettes der ikke noget data da admin ikke har nogen survey eller onboarding data tilknyttet.
+    '.delete("/me")': {
+        forklaring: 'Til at slette sin egen konto som bruger',
+        hvis_res_ok: {
+            success: true,
+            message: "Your account and linked data were deleted.",
+        },
+        hvis_res_IKKE_ok: {
+            success: false,
+            message: "User was not found.",
+        }
+        
+    }
+    
 }
+

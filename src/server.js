@@ -10,7 +10,7 @@ import csrfRoutes from "./routes/csrf.js";
 import authRoutes from "./routes/auth.js";
 import surveyRoutes from './routes/survey.js';
 import clientsRoutes from './routes/clients.js';
-
+import accountRoutes from "./routes/account.js";
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -200,6 +200,7 @@ app.use("/auth", authRoutes);
 // clients routes
 app.use('/clients', clientsRoutes)
 
+app.use("/account", accountRoutes);
 /*
   Midlertidig test-route.
   Når den virker, ved jeg, at serveren starter korrekt.
