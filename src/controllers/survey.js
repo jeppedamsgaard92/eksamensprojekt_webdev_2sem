@@ -1,6 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
+import { auditLog } from "../utils/auditLogger.js";
 
 import {
   createAnsweredSurvey,
@@ -42,6 +43,10 @@ export async function uploadSurveyFile(req, res) {
       JSON.stringify(validation.data, null, 4),
       "utf-8"
     );
+    await auditLog({
+      action: "UPLOAD_SURVEY_TEMPLATE",
+      actorUserId: req.session.user.id,
+    });
 
     res.status(200).json({
       success: true,
