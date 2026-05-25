@@ -82,6 +82,21 @@ export async function uploadAnsweredSurvey(req, res, next) {
       });
     }
 
+    const surveyFile = await fs.readFile(pathToSurvey, "utf-8");
+    
+    //sikrer at spørgsmålene i besvarelsen matcher spørgsmålene på serveren, for at undgå problemer hvis surveyet er blevet ændret siden brugeren startede på det. eller omvendt.
+    const serverQuestions = JSON.parse(surveyFile);
+    const submittedQuestions = validation.data.map((item) => item.question);
+    const questionsMatchServer = submittedQuestions.length === serverQuestions.length && submittedQuestions.every((question, index) => {
+        return question === serverQuestions[index];
+      });
+    if (!questionsMatchServer) {
+      return res.status(400).json({
+        success: false,
+        message: "Survey questions do not match the server survey. This has likely been caused by the survey being updated since the user started filling it out. Please refresh the page and fill out the survey again.",
+      });
+    }
+
     // Selve gemmelogikken ligger i dataUtils.
     const newAnsweredSurvey = await createAnsweredSurvey(
       validation.data
