@@ -2,7 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { getAllPdfFiles, uploadPdfFiles, sendOnboardingInvitation, uploadYoutubeLinks, getSavedYoutubeLinks, createOnboardingCourse, updateOnboardingProgress, deleteOnboardingCourse } from '../controllers/onboarding.js';
+import { getAllPdfFiles, uploadPdfFiles, sendOnboardingInvitation, uploadYoutubeLinks, getSavedYoutubeLinks, createOnboardingCourse, updateOnboardingProgress, deleteOnboardingCourse, deleteYoutubeLink } from '../controllers/onboarding.js';
 import { requireAuth } from '../middleware/requireAuth.js';
 import { requirePermission } from '../middleware/requirePermission.js';
 import { requireCsrfToken } from '../middleware/requireCsrfToken.js';
@@ -35,6 +35,8 @@ router.get('/pdf-slides', requireAuth, requirePermission('do-admin-stuff'), getA
 router.post('/youtube-links', requireAuth, requirePermission('do-admin-stuff'), requireCsrfToken, uploadYoutubeLinks);
 
 router.get('/youtube-links', requireAuth, requirePermission('do-admin-stuff'), getSavedYoutubeLinks);
+
+router.delete('/youtube-link/:linkId', requireAuth, requirePermission('do-admin-stuff'), deleteYoutubeLink)
 
 // Til at poste onboarding til specifik bruger
 router.post("/:userId/onboarding", requireAuth, requirePermission("account:send-onboarding-and-invitation"), requireCsrfToken, createOnboardingCourse);

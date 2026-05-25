@@ -144,6 +144,15 @@ export async function getSavedYoutubeLinks(req, res) {
     }
 }
 
+// Til at slette et youtube link by id
+export async function deleteYoutubeLink(req, res) {
+    const { linkId } = req.params;
+
+    if (!linkId) {
+
+    }
+}
+
 // Til at oprette onboarding course til specifik klient
 export async function createOnboardingCourse(req, res, next) {
     const { userId } = req.params;
@@ -212,9 +221,9 @@ export async function sendOnboardingInvitation(req, res, next) {
     try {
         const { userId } = req.params;
 
-        const userHasOnboardingCourse = findCourseById(userId);
+        const userHasOnboardingCourse = await findCourseById(userId);
         if (!userHasOnboardingCourse) {
-            res.status(500).JSON({
+            res.status(400).JSON({
                 success: false,
                 message: 'Brugeren har ikke et onboarding kursus endnu.'
             })
