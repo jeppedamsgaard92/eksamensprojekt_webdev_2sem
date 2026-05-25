@@ -1,1 +1,37 @@
-[]
+[
+  {
+    "id": "0821d7e0-d8ce-4d3f-92b3-aaa87758c23e",
+    "timestamp": "2026-05-25T14:54:38.361Z",
+    "action": "UPLOAD_SURVEY_TEMPLATE",
+    "actorUserId": "3bd16047-8054-4480-a864-0c2c48388cdc"
+  },
+  {
+    "id": "4424f2d1-6c56-45fd-adb1-cc4c695355bc",
+    "timestamp": "2026-05-25T14:57:06.190Z",
+    "action": "UPLOAD_YOUTUBE_LINKS",
+    "actorUserId": "3bd16047-8054-4480-a864-0c2c48388cdc"
+  },
+  {
+    "id": "9ea06a86-342d-4ea4-ab7e-59500ff3c7bc",
+    "timestamp": "2026-05-25T15:23:56.564Z",
+    "action": "CREATE_CLIENT_ACCOUNT",
+    "actorUserId": "3bd16047-8054-4480-a864-0c2c48388cdc",
+    "targetUserId": "a91bc460-b10d-413d-abde-e75f1775bfc4",
+    "targetRole": "client"
+  },
+  {
+    "id": "36e1fca7-e2bb-4fe8-bd31-83084c006cbf",
+    "timestamp": "2026-05-25T15:25:37.214Z",
+    "action": "CREATE_CLIENT_ACCOUNT",
+    "actorUserId": "3bd16047-8054-4480-a864-0c2c48388cdc",
+    "targetUserId": "9063f86e-da12-4151-a197-faaa79f13804",
+    "targetRole": "client"
+  },
+  {
+    "id": "30842617-a6b7-44f2-9deb-9106271593f5",
+    "timestamp": "2026-05-25T15:29:48.117Z",
+    "action": "CREATE_OR_UPDATE_ONBOARDING_COURSE",
+    "actorUserId": "3bd16047-8054-4480-a864-0c2c48388cdc",
+    "targetUserId": "a91bc460-b10d-413d-abde-e75f1775bfc4"
+  }
+]
