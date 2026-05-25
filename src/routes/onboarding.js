@@ -24,17 +24,17 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({
-  storage,
-  fileFilter: function (req, file, cb) {
-    if (file.mimetype !== "application/pdf") {
-      return cb(new Error("Only PDF files are allowed."));
-    }
+    storage,
+    fileFilter: function (req, file, cb) {
+        if (file.mimetype !== "application/pdf") {
+            return cb(new Error("Only PDF files are allowed."));
+        }
 
-    cb(null, true);
-  },
-  limits: {
-    fileSize: 10 * 1024 * 1024,
-  },
+        cb(null, true);
+    },
+    limits: {
+        fileSize: 10 * 1024 * 1024,
+    },
 });
 const router = express.Router();
 
@@ -47,7 +47,7 @@ router.post('/youtube-links', requireAuth, requirePermission('do-admin-stuff'), 
 
 router.get('/youtube-links', requireAuth, requirePermission('do-admin-stuff'), getSavedYoutubeLinks);
 
-router.delete('/youtube-link/:linkId', requireAuth, requirePermission('do-admin-stuff'), deleteYoutubeLink)
+router.delete('/youtube-link/:linkId', requireAuth, requirePermission('do-admin-stuff'), requireCsrfToken, deleteYoutubeLink)
 
 // Til at poste onboarding til specifik bruger
 router.post("/:userId/onboarding", requireAuth, requirePermission("account:send-onboarding-and-invitation"), requireCsrfToken, createOnboardingCourse);

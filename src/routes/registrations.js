@@ -22,7 +22,17 @@ router.post("/", requirePendingRegistrationSession, requireCsrfToken, validateCo
 
 // admin til at oprette klient og admin accounts
 router.post(
-  "/create-new-client-account/:id?",
+  "/create-new-client-account/:id",
+  requireAuth,
+  requirePermission("create:client-account"),
+  requireCsrfToken,
+  validateAccountCreation,
+  createNewClientAccount
+);
+
+// Uden at koble bruger til et survey-id
+router.post(
+  "/create-new-client-account",
   requireAuth,
   requirePermission("create:client-account"),
   requireCsrfToken,

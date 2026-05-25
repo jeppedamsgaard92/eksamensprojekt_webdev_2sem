@@ -3,11 +3,12 @@ import path from "path";
 import { fileURLToPath } from "url";
 import multer from "multer";
 import { createRegistrationInvitationForUser } from "../services/invitations.js";
-import { addCourse, getAllSavedYoutubeLinks, findCourseById, deleteCourseById } from "../dataUtils/onboarding.js";
+import { addCourse, getAllSavedYoutubeLinks, findCourseById, deleteCourseById, deleteYoutubeLinkById, saveAllYoutubeLinks } from "../dataUtils/onboarding.js";
 import crypto from 'crypto';
 import { sendRegistrationInvitationEmail } from "../services/email.js";
 import { findUserById } from "../dataUtils/users.js";
 import { onboardingCourseSchema, onboardingCourseSchemaWithProgress } from "../schemas/onboarding.js";
+import { success } from "zod";
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -119,7 +120,7 @@ export async function uploadYoutubeLinks(req, res, next) {
     existingLinks.push(...newLinksWithId);
 
     try {
-        await fs.writeFile(youtubeLinksFile, JSON.stringify(existingLinks, null, 4), 'utf-8');
+        await saveAllYoutubeLinks(existingLinks);
 
         return res.status(200).json({
             success: true,
@@ -145,12 +146,30 @@ export async function getSavedYoutubeLinks(req, res) {
 }
 
 // Til at slette et youtube link by id
-export async function deleteYoutubeLink(req, res) {
+export async function deleteYoutubeLink(req, res, next) {
     const { linkId } = req.params;
 
-    if (!linkId) {
+    try {
+        const updatedList = await deleteYoutubeLinkById(linkId);
 
+        if (!updatedList) {
+            return res.status(404).json({
+                success: false,
+                message: 'Kunne ikke finde et link med dette id'
+            })
+        }
+
+        res.status(200).json({
+            success: true,
+            message: 'youtube link blev slettet',
+            allLinks: updatedList
+        })
+    } catch (err) {
+        console.error(err);
+        next(err);
     }
+
+
 }
 
 // Til at oprette onboarding course til specifik klient

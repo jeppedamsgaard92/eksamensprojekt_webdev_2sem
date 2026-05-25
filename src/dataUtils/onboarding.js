@@ -1,7 +1,6 @@
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
-import { success } from "zod";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -17,6 +16,30 @@ export async function getAllSavedYoutubeLinks() {
     const existingLinks = JSON.parse(file);
 
     return existingLinks;
+}
+
+export async function saveAllYoutubeLinks(allLinks) {
+    await fs.writeFile(youtubeLinksFile, JSON.stringify(allLinks, null, 4), 'utf-8');
+}
+
+export async function deleteYoutubeLinkById(id) {
+    const allLinks = await getAllSavedYoutubeLinks();
+
+    let wasDeleted = false;
+
+    for (let i = 0; i < allLinks.length; i++) {
+        if (allLinks[i].id === id) {
+            allLinks.splice(i, 1);
+            wasDeleted = true
+            break;
+        }
+    }
+
+    if (wasDeleted) {
+        await saveAllYoutubeLinks(allLinks);
+    }
+
+    return wasDeleted ? allLinks : null;
 }
 
 export async function getAllOnboardingCourses() {
