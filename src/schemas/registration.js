@@ -8,11 +8,7 @@ export const completeRegistrationSchema = z
       .string()
       .trim()
       .min(3, "Username must be at least 3 characters.")
-      .max(30, "Username must be 30 characters or fewer.")
-      .regex(
-        /^[a-zA-Z0-9_-]+$/,
-        "Username may only contain letters, numbers, underscores, and hyphens."
-      ),
+      .max(50, "Username must be 50 characters or fewer."),
 
     //Password trimmes ikke, fordi mellemrum kan være en bevidst del af passwordet.
     password: z
