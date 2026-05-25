@@ -1,14 +1,14 @@
 import { z } from "zod";
 
 export const loginSchema = z.object({
-  // Username trimmes, fordi mellemrum før/efter er fejl.
   username: z
-    .string()
-    .trim()
-    .min(1, "Username is required."),
+  .string()
+  .trim()
+  .min(1, "Username is required.")
+  .max(100, "Username must be 100 characters or fewer."),
 
-  // Password trimmes ikke, fordi mellemrum kan være del af passwordet.
-  password: z
-    .string()
-    .min(1, "Password is required."),
+password: z
+  .string()
+  .min(1, "Password is required.")
+  .max(128, "Password must be 128 characters or fewer."),
 });

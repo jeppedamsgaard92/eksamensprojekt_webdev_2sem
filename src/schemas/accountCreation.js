@@ -11,5 +11,6 @@ export const accountCreationSchema = z.object({
     .string()
     .trim()
     .toLowerCase()
+    .max(254, "Email must be 254 characters or fewer.")
     .email("Email must be valid."),
 });
