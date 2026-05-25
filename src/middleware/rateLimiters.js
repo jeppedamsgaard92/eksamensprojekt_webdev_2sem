@@ -34,3 +34,15 @@ export const surveyAnswerLimiter = rateLimit({
     message: "Too many survey submissions. Please try again later.",
   },
 });
+
+// Begrænser hvor mange gange en bruger kan forsøge at registrere sig.
+export const registrationLimiter = rateLimit({
+  windowMs: 1000 * 60 * 15,
+  max: 10,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    message:
+      "Too many registration attempts. Please try again later.",
+  },
+});

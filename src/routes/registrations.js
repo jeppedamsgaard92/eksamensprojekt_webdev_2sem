@@ -7,7 +7,7 @@ import { requireAuth } from "../middleware/requireAuth.js";
 import { requirePermission } from "../middleware/requirePermission.js";
 import { validateAccountCreation } from "../middleware/validateAccountCreation.js";
 import { createNewClientAccount, createNewAdminAccount } from "../controllers/admin.js";
-
+import { registrationLimiter } from "../middleware/rateLimiters.js";
 
 const router = express.Router();
 
@@ -17,7 +17,7 @@ router.get("/activate", activateRegistration);
 //Selve registreringssiden
 router.get("/", requirePendingRegistrationSession, showRegistrationPage);
 //Man må også kun rent faktisk oprette sig hvis man 
-router.post("/", requirePendingRegistrationSession, requireCsrfToken, validateCompleteRegistration, completeRegistration);
+router.post("/", registrationLimiter, requirePendingRegistrationSession, requireCsrfToken, validateCompleteRegistration, completeRegistration);
 
 
 // admin til at oprette klient og admin accounts
