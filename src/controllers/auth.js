@@ -35,7 +35,7 @@ export async function login(req, res, next) {
         id: req.session.user.id,
         username: req.session.user.username,
         role: req.session.user.role,
-        onboardingCourse: req.session.user.role === 'admin' ? undefined : onboardingCourse.onboardingSlides ?? null
+        onboardingCourse: req.session.user.role === 'admin' ? undefined : onboardingCourse ? onboardingCourse.onboardingSlides : null
         //user: req.session.user,
       });
     });
@@ -52,7 +52,7 @@ export async function getCurrentUser(req, res) {
     id: user.id,
     role: user.role,
     username: user.username,
-    onboardingCourse: user.role === 'admin' ? undefined : onboardingCourse.onboardingSlides ?? null
+    onboardingCourse: user.role === 'admin' ? undefined : onboardingCourse ? onboardingCourse.onboardingSlides : null
   });
 }
 
