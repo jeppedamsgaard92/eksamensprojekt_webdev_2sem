@@ -101,7 +101,7 @@ app.use("/clients", clientsRoutes); // Routes til admin-håndtering af klienter.
 app.use("/account", accountRoutes); // Routes til brugerens egen konto.
 
 app.use((req, res) => {
-  res.status(404).send("Siden blev ikke fundet."); // Fanger requests til routes, der ikke findes.
+  res.status(404).json({ message: "Siden blev ikke fundet." }); // Fanger requests til routes, der ikke findes.
 });
 
 app.use((error, req, res, next) => {
