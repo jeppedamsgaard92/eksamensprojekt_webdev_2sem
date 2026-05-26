@@ -2,11 +2,11 @@ import { z } from "zod";
 
 export const updateOwnAccountSchema = z
   .object({
-    name: z
+    newUsername: z
       .string()
       .trim()
-      .min(1, "Name is required.")
-      .max(100, "Name must be 100 characters or fewer."),
+      .min(3, "Username must be at least 3 characters.")
+      .max(50, "Username must be 50 characters or fewer."),
 
     email: z
       .string()
@@ -16,12 +16,9 @@ export const updateOwnAccountSchema = z
       .email("Email must be valid."),
   })
   .partial()
-  .refine(
-    (data) => Object.keys(data).length > 0,
-    {
-      message: "At least one field must be provided.",
-    }
-  );
+  .refine((data) => Object.keys(data).length > 0, {
+    message: "At least one field must be provided.",
+  });
 
 export const updateOwnPasswordSchema = z
   .object({

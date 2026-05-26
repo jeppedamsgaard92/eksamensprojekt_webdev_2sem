@@ -1,27 +1,5 @@
 [
     {
-        "surveyId": "1ebb978e-ea85-414f-92c7-dc0a49dcf500",
-        "hasRegisteredClient": false,
-        "survey": [
-            {
-                "question": "spøgsmål 1",
-                "answer": "Svar 1"
-            },
-            {
-                "question": "spøgsmål 2",
-                "answer": "Svar 2"
-            },
-            {
-                "question": "spøgsmål 3",
-                "answer": "Svar 3"
-            },
-            {
-                "question": "spøgsmål 4",
-                "answer": "Svar 4"
-            }
-        ]
-    },
-    {
         "surveyId": "af473e43-3d3e-4bbf-a9da-4b472eaf5c49",
         "hasRegisteredClient": true,
         "survey": [
@@ -152,6 +130,72 @@
     {
         "surveyId": "a91bc460-b10d-413d-abde-e75f1775bfc4",
         "hasRegisteredClient": true,
+        "survey": [
+            {
+                "question": "Spørgsmål 1",
+                "answer": "Svar 1"
+            },
+            {
+                "question": "Spørgsmål 2",
+                "answer": "Svar 2"
+            },
+            {
+                "question": "Spørgsmål 3",
+                "answer": "Svar 3"
+            },
+            {
+                "question": "Spørgsmål 4",
+                "answer": "Svar 4"
+            }
+        ]
+    },
+    {
+        "surveyId": "c1971e43-ba46-4cdf-a3b7-fd006a83bf62",
+        "hasRegisteredClient": false,
+        "survey": [
+            {
+                "question": "Spørgsmål 1",
+                "answer": "Svar 1"
+            },
+            {
+                "question": "Spørgsmål 2",
+                "answer": "Svar 2"
+            },
+            {
+                "question": "Spørgsmål 3",
+                "answer": "Svar 3"
+            },
+            {
+                "question": "Spørgsmål 4",
+                "answer": "Svar 4"
+            }
+        ]
+    },
+    {
+        "surveyId": "6ff6c051-ff20-4359-8bbf-307cb883365d",
+        "hasRegisteredClient": false,
+        "survey": [
+            {
+                "question": "Spørgsmål 1",
+                "answer": "Svar 1"
+            },
+            {
+                "question": "Spørgsmål 2",
+                "answer": "Svar 2"
+            },
+            {
+                "question": "Spørgsmål 3",
+                "answer": "Svar 3"
+            },
+            {
+                "question": "Spørgsmål 4",
+                "answer": "Svar 4"
+            }
+        ]
+    },
+    {
+        "surveyId": "6313ffb8-2b1f-4e89-86ae-9003f5cf8656",
+        "hasRegisteredClient": false,
         "survey": [
             {
                 "question": "Spørgsmål 1",

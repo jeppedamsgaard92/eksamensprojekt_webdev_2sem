@@ -33,5 +33,134 @@
     "action": "CREATE_OR_UPDATE_ONBOARDING_COURSE",
     "actorUserId": "3bd16047-8054-4480-a864-0c2c48388cdc",
     "targetUserId": "a91bc460-b10d-413d-abde-e75f1775bfc4"
+  },
+  {
+    "id": "5de261d3-ef00-495a-a2ed-991837b6e0d1",
+    "timestamp": "2026-05-25T18:46:38.497Z",
+    "action": "CREATE_CLIENT_ACCOUNT",
+    "actorUserId": "3bd16047-8054-4480-a864-0c2c48388cdc",
+    "targetUserId": "28876a7a-1e69-4b5f-a6a8-5eba358f617a",
+    "targetRole": "client"
+  },
+  {
+    "id": "7742f77e-aad8-4a88-815e-db6149637c26",
+    "timestamp": "2026-05-25T18:49:57.473Z",
+    "action": "CREATE_CLIENT_ACCOUNT",
+    "actorUserId": "3bd16047-8054-4480-a864-0c2c48388cdc",
+    "targetUserId": "c9e93495-cb60-4f2e-82da-7ad99b3c429e",
+    "targetRole": "client"
+  },
+  {
+    "id": "e1ceb65d-dfeb-4f9d-8e62-9fdff37df051",
+    "timestamp": "2026-05-25T18:51:05.851Z",
+    "action": "CREATE_OR_UPDATE_ONBOARDING_COURSE",
+    "actorUserId": "3bd16047-8054-4480-a864-0c2c48388cdc",
+    "targetUserId": "c9e93495-cb60-4f2e-82da-7ad99b3c429e"
+  },
+  {
+    "id": "d8f097d7-1bc8-46b2-a58c-6bff3f531bbb",
+    "timestamp": "2026-05-25T19:15:37.900Z",
+    "action": "UPDATE_OWN_ACCOUNT",
+    "actorUserId": "c9e93495-cb60-4f2e-82da-7ad99b3c429e",
+    "targetUserId": "c9e93495-cb60-4f2e-82da-7ad99b3c429e"
+  },
+  {
+    "id": "2962802e-dea1-4bef-806d-7fedf4bfca2b",
+    "timestamp": "2026-05-25T19:16:12.660Z",
+    "action": "UPDATE_OWN_PASSWORD",
+    "actorUserId": "c9e93495-cb60-4f2e-82da-7ad99b3c429e",
+    "targetUserId": "c9e93495-cb60-4f2e-82da-7ad99b3c429e"
+  },
+  {
+    "id": "ff29d56a-4435-41b3-a288-13461a4a84a9",
+    "timestamp": "2026-05-25T19:16:49.011Z",
+    "action": "UPDATE_OWN_PASSWORD",
+    "actorUserId": "c9e93495-cb60-4f2e-82da-7ad99b3c429e",
+    "targetUserId": "c9e93495-cb60-4f2e-82da-7ad99b3c429e"
+  },
+  {
+    "id": "f5a242d3-0f65-4c3f-aaad-30d5a7ae3988",
+    "timestamp": "2026-05-25T19:28:13.857Z",
+    "action": "UPDATE_OWN_ACCOUNT",
+    "actorUserId": "c9e93495-cb60-4f2e-82da-7ad99b3c429e",
+    "targetUserId": "c9e93495-cb60-4f2e-82da-7ad99b3c429e"
+  },
+  {
+    "id": "fabf125a-3039-45c9-a03f-60720168bec3",
+    "timestamp": "2026-05-25T19:28:55.749Z",
+    "action": "DELETE_OWN_ACCOUNT",
+    "actorUserId": "c9e93495-cb60-4f2e-82da-7ad99b3c429e",
+    "targetUserId": "c9e93495-cb60-4f2e-82da-7ad99b3c429e"
+  },
+  {
+    "id": "56d82934-caa8-473a-b60f-ea01cd6b56f3",
+    "timestamp": "2026-05-25T19:30:01.742Z",
+    "action": "CREATE_CLIENT_ACCOUNT",
+    "actorUserId": "3bd16047-8054-4480-a864-0c2c48388cdc",
+    "targetUserId": "9a5122d6-3231-483c-8a65-6514f6b69d93",
+    "targetRole": "client"
+  },
+  {
+    "id": "4d9281c7-7367-4305-8f7c-7b4cea1aac32",
+    "timestamp": "2026-05-25T19:38:42.490Z",
+    "action": "CREATE_OR_UPDATE_ONBOARDING_COURSE",
+    "actorUserId": "3bd16047-8054-4480-a864-0c2c48388cdc",
+    "targetUserId": "9a5122d6-3231-483c-8a65-6514f6b69d93"
+  },
+  {
+    "id": "6793c982-7fa6-4961-8ff5-59232178d916",
+    "timestamp": "2026-05-25T19:38:46.961Z",
+    "action": "SEND_REGISTRATION_INVITATION",
+    "actorUserId": "3bd16047-8054-4480-a864-0c2c48388cdc",
+    "targetUserId": "9a5122d6-3231-483c-8a65-6514f6b69d93"
+  },
+  {
+    "id": "eccc2d7c-2c4a-498b-ba77-9b31d18759df",
+    "timestamp": "2026-05-25T19:40:32.360Z",
+    "action": "UPDATE_OWN_ACCOUNT",
+    "actorUserId": "9a5122d6-3231-483c-8a65-6514f6b69d93",
+    "targetUserId": "9a5122d6-3231-483c-8a65-6514f6b69d93"
+  },
+  {
+    "id": "4c06238a-1dfe-402f-bb8b-e328f43b3fc6",
+    "timestamp": "2026-05-25T19:41:01.647Z",
+    "action": "UPDATE_OWN_ACCOUNT",
+    "actorUserId": "9a5122d6-3231-483c-8a65-6514f6b69d93",
+    "targetUserId": "9a5122d6-3231-483c-8a65-6514f6b69d93"
+  },
+  {
+    "id": "2eacbfe4-f23d-4c58-a7f6-6e897d055ac8",
+    "timestamp": "2026-05-25T19:41:02.241Z",
+    "action": "UPDATE_OWN_ACCOUNT",
+    "actorUserId": "9a5122d6-3231-483c-8a65-6514f6b69d93",
+    "targetUserId": "9a5122d6-3231-483c-8a65-6514f6b69d93"
+  },
+  {
+    "id": "9509ae6a-8252-43e2-a637-2275d3888f3f",
+    "timestamp": "2026-05-25T19:41:02.691Z",
+    "action": "UPDATE_OWN_ACCOUNT",
+    "actorUserId": "9a5122d6-3231-483c-8a65-6514f6b69d93",
+    "targetUserId": "9a5122d6-3231-483c-8a65-6514f6b69d93"
+  },
+  {
+    "id": "035e1702-6c18-4c4e-a367-8541fee4c01d",
+    "timestamp": "2026-05-25T19:41:03.176Z",
+    "action": "UPDATE_OWN_ACCOUNT",
+    "actorUserId": "9a5122d6-3231-483c-8a65-6514f6b69d93",
+    "targetUserId": "9a5122d6-3231-483c-8a65-6514f6b69d93"
+  },
+  {
+    "id": "0ac42d9c-48c6-4060-8203-65542da137dc",
+    "timestamp": "2026-05-25T19:46:44.053Z",
+    "action": "UPDATE_OWN_ACCOUNT",
+    "actorUserId": "9a5122d6-3231-483c-8a65-6514f6b69d93",
+    "targetUserId": "9a5122d6-3231-483c-8a65-6514f6b69d93"
+  },
+  {
+    "id": "3cc81d15-fddb-4087-8bb8-3f6474fc36ae",
+    "timestamp": "2026-05-25T20:01:24.391Z",
+    "action": "UPDATE_OWN_ACCOUNT",
+    "actorUserId": "9a5122d6-3231-483c-8a65-6514f6b69d93",
+    "targetUserId": "9a5122d6-3231-483c-8a65-6514f6b69d93"
   }
 ]

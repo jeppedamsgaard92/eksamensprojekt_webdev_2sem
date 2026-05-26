@@ -1,0 +1,87 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+section {
+  border: 1px solid #ccc;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+input,
+textarea,
+button {
+  display: block;
+  margin: 8px 0;
+  padding: 8px;
+  width: 100%;
+  max-width: 500px;
+}
+
+button {
+  cursor: pointer;
+}
+
+pre {
+  background: #111;
+  color: #0f0;
+  padding: 12px;
+  white-space: pre-wrap;
+}
+
+.action-box {
+  border: 1px solid #ddd;
+  padding: 12px;
+  margin: 12px 0;
+  background: #fafafa;
+}
+
+.action-box h3 {
+  margin-top: 0;
+}
+
+.action-box p {
+  margin: 4px 0 12px;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.danger {
+  border-color: #b00020;
+  background: #fff5f5;
+}
+
+body {
+  padding-right: 440px;
+}
+
+#output {
+  position: fixed;
+  top: 35px;
+  right: 20px;
+  width: 380px;
+  height: calc(100vh - 40px);
+  overflow: auto;
+  z-index: 1000;
+}
+
+.response-panel {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 400px;
+  height: calc(100vh - 40px);
+  z-index: 1000;
+}
+
+.response-panel h2 {
+  margin-top: 0;
+}
+
+.response-panel pre {
+  height: calc(100% - 50px);
+  overflow: auto;
+}

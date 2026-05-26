@@ -146,7 +146,7 @@
     "id": "107442bb-a6ba-4329-9889-346fc280efb9",
     "name": "Jeppe",
     "role": "client",
-    "email": "jeppedamsgaard92@gmail.com",
+    "email": "jeppedasgaard92@gmail.com",
     "username": "client1",
     "passwordHash": "$argon2id$v=19$m=65536,t=3,p=4$aufikdhvRZChFT+IKvExLA$7VVi4LW0+xxnnAPDWWwlRkiwOYQPkas1KYMLzD1uK78",
     "registrationCompleted": true,
@@ -177,5 +177,29 @@
     "registrationTokenHash": null,
     "registrationTokenExpiresAt": null,
     "registrationTokenUsedAt": null
+  },
+  {
+    "id": "28876a7a-1e69-4b5f-a6a8-5eba358f617a",
+    "name": "hej",
+    "role": "client",
+    "email": "jojo@jojo.com",
+    "username": null,
+    "passwordHash": null,
+    "registrationCompleted": false,
+    "registrationTokenHash": null,
+    "registrationTokenExpiresAt": null,
+    "registrationTokenUsedAt": null
+  },
+  {
+    "id": "9a5122d6-3231-483c-8a65-6514f6b69d93",
+    "name": "batman",
+    "role": "client",
+    "email": "jeppedamsgaard92@gmail.com",
+    "username": "superman",
+    "passwordHash": "$argon2id$v=19$m=65536,t=3,p=4$bQbVfV8HOd8GddIN5S2NBg$46mKxavZkkZZUAAcoT2lFoJxXpWrzCue6/YBuxkwN1U",
+    "registrationCompleted": true,
+    "registrationTokenHash": null,
+    "registrationTokenExpiresAt": null,
+    "registrationTokenUsedAt": "2026-05-25T19:39:43.511Z"
   }
 ]

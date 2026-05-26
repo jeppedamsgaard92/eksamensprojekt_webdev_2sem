@@ -2,7 +2,7 @@ import { deleteUserById } from "../dataUtils/users.js";
 import { deleteSurveyById } from "../dataUtils/surveys.js";
 import { deleteCourseById } from "../dataUtils/onboarding.js";
 import { auditLog } from "../utils/auditLogger.js";
-import { findUserByEmail, updateUserById } from "../dataUtils/users.js";
+import { findUserByEmail, findUserByUsername, updateUserById } from "../dataUtils/users.js";
 import { hashPassword } from "../utils/passwords.js";
 
 export async function deleteOwnAccount(req, res, next) {
@@ -47,12 +47,21 @@ export async function deleteOwnAccount(req, res, next) {
 export async function updateOwnAccount(req, res, next) {
   try {
     const userId = req.session.user.id;
-    const { name, email } = req.validatedData;
+    const { newUsername, email } = req.validatedData;
 
     const updates = {};
 
-    if (name !== undefined) {
-      updates.name = name;
+    if (newUsername !== undefined) {
+      const existingUserWithUsername = await findUserByUsername(newUsername);
+
+      if (existingUserWithUsername && existingUserWithUsername.id !== userId) {
+        return res.status(409).json({
+          success: false,
+          message: "Username is already in use by another account.",
+        });
+      }
+
+      updates.username = newUsername;
     }
 
     if (email !== undefined) {
@@ -77,6 +86,8 @@ export async function updateOwnAccount(req, res, next) {
       });
     }
 
+    req.session.user.username = updatedUser.username;
+
     await auditLog({
       action: "UPDATE_OWN_ACCOUNT",
       actorUserId: userId,
@@ -88,9 +99,8 @@ export async function updateOwnAccount(req, res, next) {
       message: "Your account was updated.",
       user: {
         id: updatedUser.id,
-        name: updatedUser.name,
-        email: updatedUser.email,
         username: updatedUser.username,
+        email: updatedUser.email,
         role: updatedUser.role,
       },
     });

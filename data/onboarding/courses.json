@@ -53,5 +53,15 @@
                 "complete": false
             }
         ]
+    },
+    {
+        "courseId": "9a5122d6-3231-483c-8a65-6514f6b69d93",
+        "onboardingSlides": [
+            {
+                "type": "youtube",
+                "src": "https://www.youtube.com/watch?v=w9HOvlhIlBg",
+                "complete": false
+            }
+        ]
     }
 ]

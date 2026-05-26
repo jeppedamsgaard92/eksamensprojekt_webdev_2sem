@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8" />
+  <title>CRUD test frontend</title>
+  <link rel="stylesheet" href="/test.css" />
+</head>
+<body>
+  <h1>CRUD test frontend</h1>
+
+  <section>
+    <h2>1. Login / session</h2>
+
+    <div class="action-box">
+      <h3>Login</h3>
+      <input id="loginUsername" placeholder="Username" />
+      <input id="loginPassword" placeholder="Password" type="password" />
+      <button id="loginBtn">Login</button>
+    </div>
+
+    <div class="action-box">
+      <h3>Session</h3>
+      <button id="currentUserBtn">Get current user</button>
+      <button id="logoutBtn">Logout</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Client CRUD</h2>
+
+    <div class="action-box">
+      <h3>Create client</h3>
+      <input id="clientName" placeholder="Client name" />
+      <input id="clientEmail" placeholder="Client email" />
+      <input id="clientSurveyId" placeholder="Survey ID optional" />
+      <button id="createClientBtn">Create client</button>
+    </div>
+
+    <div class="action-box">
+      <h3>Read/delete client</h3>
+      <input id="clientId" placeholder="Client/user ID" />
+      <button id="getClientBtn">Read specific client</button>
+      <button id="deleteClientBtn">Delete client</button>
+    </div>
+
+    <div class="action-box">
+      <h3>Read all clients</h3>
+      <button id="getAllClientsBtn">Read all clients</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Survey CRUD</h2>
+
+    <div class="action-box">
+      <h3>Read survey template</h3>
+      <button id="getSurveyQuestionsBtn">Read survey questions</button>
+    </div>
+
+    <div class="action-box">
+      <h3>Create/update survey template</h3>
+      <textarea id="newSurvey" rows="5">[
+  "Spørgsmål 1",
+  "Spørgsmål 2",
+  "Spørgsmål 3",
+  "Spørgsmål 4"
+]</textarea>
+      <button id="updateSurveyTemplateBtn">Create/update survey template</button>
+    </div>
+
+    <div class="action-box">
+      <h3>Create answered survey</h3>
+      <textarea id="surveyAnswers" rows="8">[
+  { "question": "Spørgsmål 1", "answer": "Svar 1" },
+  { "question": "Spørgsmål 2", "answer": "Svar 2" },
+  { "question": "Spørgsmål 3", "answer": "Svar 3" },
+  { "question": "Spørgsmål 4", "answer": "Svar 4" }
+]</textarea>
+      <button id="createSurveyAnswerBtn">Create survey answer</button>
+    </div>
+
+    <div class="action-box">
+      <h3>Read/delete answered survey</h3>
+      <input id="surveyId" placeholder="Survey answer ID" />
+      <button id="getAnsweredSurveysBtn">Read unlinked answered surveys</button>
+      <button id="deleteSurveyAnswerBtn">Delete answered survey</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Onboarding CRUD</h2>
+
+    <div class="action-box">
+      <h3>Create/update onboarding for client</h3>
+      <input id="onboardingUserId" placeholder="Client/user ID" />
+      <textarea id="onboardingSlides" rows="7">[
+  {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=w9HOvlhIlBg"
+  }
+]</textarea>
+      <button id="createOnboardingBtn">Create/update onboarding</button>
+      <button id="sendInvitationBtn">Send registration invitation</button>
+      <button id="deleteOnboardingBtn">Delete onboarding</button>
+    </div>
+
+    <div class="action-box">
+      <h3>Read own onboarding</h3>
+      <button id="readMyOnboardingBtn">Read my onboarding</button>
+    </div>
+
+    <div class="action-box">
+      <h3>Update own onboarding progress</h3>
+      <textarea id="onboardingProgress" rows="7">[
+  {
+    "type": "youtube",
+    "src": "https://www.youtube.com/watch?v=w9HOvlhIlBg",
+    "complete": true
+  }
+]</textarea>
+      <button id="updateProgressBtn">Update own onboarding progress</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. YouTube link CRUD</h2>
+
+    <div class="action-box">
+      <h3>Create YouTube links</h3>
+      <textarea id="youtubeLinks" rows="5">[
+  {
+    "titel": "Test video",
+    "url": "https://www.youtube.com/watch?v=w9HOvlhIlBg"
+  }
+]</textarea>
+      <button id="createYoutubeLinksBtn">Create YouTube links</button>
+    </div>
+
+    <div class="action-box">
+      <h3>Read/delete YouTube links</h3>
+      <input id="youtubeLinkId" placeholder="YouTube link ID" />
+      <button id="readYoutubeLinksBtn">Read YouTube links</button>
+      <button id="deleteYoutubeLinkBtn">Delete YouTube link</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>6. PDF CRUD</h2>
+
+    <div class="action-box">
+      <h3>Read/delete PDF files</h3>
+      <input id="pdfFilename" placeholder="Exact PDF filename" />
+      <button id="readPdfBtn">Read PDF files</button>
+      <button id="deletePdfBtn">Delete PDF file</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>7. Own account CRUD</h2>
+
+    <div class="action-box">
+      <h3>Reauthentication fields</h3>
+      <p>Bruges af update account, update password og delete account.</p>
+      <input id="reauthUsername" placeholder="Current username" />
+      <input id="reauthPassword" placeholder="Current password" type="password" />
+    </div>
+
+    <div class="action-box">
+      <h3>Update own account</h3>
+      <input id="newUsername" placeholder="New username optional" />
+      <input id="newEmail" placeholder="New email optional" />
+      <button id="updateOwnAccountBtn">Update own account</button>
+    </div>
+
+    <div class="action-box">
+      <h3>Update own password</h3>
+      <input id="newPassword" placeholder="New password" type="password" />
+      <input id="confirmNewPassword" placeholder="Confirm new password" type="password" />
+      <button id="updateOwnPasswordBtn">Update own password</button>
+    </div>
+
+    <div class="action-box danger">
+      <h3>Delete own account</h3>
+      <button id="deleteOwnAccountBtn">Delete own account</button>
+    </div>
+  </section>
+
+<aside class="response-panel">
+  <h2>Response</h2>
+  <pre id="output"></pre>
+</aside>
+
+  <script src="/test.js"></script>
+</body>
+</html>
