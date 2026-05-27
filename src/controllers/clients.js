@@ -26,6 +26,7 @@ export async function getAllClients(req, res) {
                 clientId: user.id,
                 role: user.role,
                 clientName: user.name,
+                hasCompletedRegistration: user.registrationCompleted,
                 surveyAnswers: answeredSurvey ? answeredSurvey.survey : null,
                 onboardingSlides: onboarding ? onboarding.onboardingSlides : null
             }
@@ -71,6 +72,7 @@ export async function getSpecificClient(req, res) {
             clientId: user.id,
             role: user.role,
             clientName: user.name,
+            hasCompletedRegistration: user.registrationCompleted,
             surveyAnswers: answeredSurvey ? answeredSurvey.survey : null,
             onboardingSlides: onboarding ? onboarding.onboardingSlides : null
         }

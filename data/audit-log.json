@@ -162,5 +162,11 @@
     "action": "UPDATE_OWN_ACCOUNT",
     "actorUserId": "9a5122d6-3231-483c-8a65-6514f6b69d93",
     "targetUserId": "9a5122d6-3231-483c-8a65-6514f6b69d93"
+  },
+  {
+    "id": "83b0178b-4f3b-48c0-9886-7b7174ed737f",
+    "timestamp": "2026-05-26T16:00:27.964Z",
+    "action": "UPLOAD_SURVEY_TEMPLATE",
+    "actorUserId": "3bd16047-8054-4480-a864-0c2c48388cdc"
   }
 ]

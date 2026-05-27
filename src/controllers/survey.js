@@ -32,7 +32,7 @@ export async function uploadSurveyFile(req, res) {
   if (!validation.success) {
     return res.status(400).json({
       success: false,
-      message: "Dataen skal være et array, og må KUN indeholde tekststrenge!",
+      message: "Dataen skal være et array, og må KUN indeholde tekststrenge. Det næstsidste SKAL være 'Virksomhedsnavn' og det sidste SKAL være 'Email'",
     });
   }
 
@@ -88,13 +88,13 @@ export async function uploadAnsweredSurvey(req, res, next) {
     }
 
     const surveyFile = await fs.readFile(pathToSurvey, "utf-8");
-    
+
     //sikrer at spørgsmålene i besvarelsen matcher spørgsmålene på serveren, for at undgå problemer hvis surveyet er blevet ændret siden brugeren startede på det. eller omvendt.
     const serverQuestions = JSON.parse(surveyFile);
     const submittedQuestions = validation.data.map((item) => item.question);
     const questionsMatchServer = submittedQuestions.length === serverQuestions.length && submittedQuestions.every((question, index) => {
-        return question === serverQuestions[index];
-      });
+      return question === serverQuestions[index];
+    });
     if (!questionsMatchServer) {
       return res.status(400).json({
         success: false,
