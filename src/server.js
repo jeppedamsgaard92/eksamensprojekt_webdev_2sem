@@ -49,19 +49,19 @@ app.use(
         styleSrc: ["'self'"], // Tillader kun CSS fra egen origin.
         imgSrc: ["'self'", "data:"], // Tillader egne billeder og data-URI billeder.
         connectSrc: ["'self'"], // Tillader fetch/XHR/WebSocket til egen origin.
-        objectSrc: ["'none'"], // Blokerer object/embed-indhold.
+        objectSrc: ["'self'"], // så browseren har lov til at indlæse PDF-plugins/objekter fra egen Express-server
         baseUri: ["'self'"], // Forhindrer manipulation af base-URL.
         formAction: ["'self'"], // Formularer må kun sende til egen origin.
-        frameAncestors: ["'none'"], // Forhindrer at siden indlejres i iframe.
+        "frame-ancestors": ["'self'", "http://localhost:5173"],
         upgradeInsecureRequests: isProduction ? [] : null, // Opgraderer HTTP til HTTPS i produktion, men ikke lokalt.
       },
     },
 
     strictTransportSecurity: isProduction
       ? {
-          maxAge: 31536000, // Browseren husker HTTPS-krav i 1 år.
-          includeSubDomains: true, // HTTPS-kravet gælder også subdomæner.
-        }
+        maxAge: 31536000, // Browseren husker HTTPS-krav i 1 år.
+        includeSubDomains: true, // HTTPS-kravet gælder også subdomæner.
+      }
       : false, // HSTS slås fra lokalt, fordi localhost typisk bruger HTTP.  HSTS giver kun mening over rigtig HTTPS.
   })
 );

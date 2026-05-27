@@ -168,5 +168,11 @@
     "timestamp": "2026-05-26T16:00:27.964Z",
     "action": "UPLOAD_SURVEY_TEMPLATE",
     "actorUserId": "3bd16047-8054-4480-a864-0c2c48388cdc"
+  },
+  {
+    "id": "7b565556-13f2-46fd-819b-ddb450e40f15",
+    "timestamp": "2026-05-27T12:31:55.116Z",
+    "action": "UPLOAD_PDF_FILES",
+    "actorUserId": "3bd16047-8054-4480-a864-0c2c48388cdc"
   }
 ]
